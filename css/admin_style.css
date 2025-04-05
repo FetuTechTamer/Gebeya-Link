@@ -232,3 +232,10 @@ section
     height: 20rem;
     resize: none;
 }
+.form-container form .btn{
+    width: 100%;
+    font-size: 1.3rem;
+}
+.form-container .image{
+    height: 30rem;
+}

@@ -1,22 +1,25 @@
 <?php
-  if (isset($success_msg) && is_array($success_msg)) 
-  {
-    echo '<script>swal("' . addslashes(implode("\n", $success_msg)) . '", "", "success");</script>';
-  }
+if (!empty($success_msg)) {
+    foreach ($success_msg as $message) {
+        echo '<script>swal("' . $message . '", "", "success");</script>';
+    }
+}
 
-  if (isset($warning_msg) && is_array($warning_msg)) 
-  {
-    echo '<script>swal("' . addslashes(implode("\n", $warning_msg)) . '", "", "warning");</script>';
-  }
+if (!empty($warning_msg)) {
+    foreach ($warning_msg as $message) {
+        echo '<script>swal("' . $message . '", "", "warning");</script>';
+    }
+}
 
-  if (isset($info_msg) && is_array($info_msg)) 
-  {
-    echo '<script>swal("' . addslashes(implode("\n", $info_msg)) . '", "", "info");</script>';
-  }
+if (!empty($info_msg)) {
+    foreach ($info_msg as $message) {
+        echo '<script>swal("' . $message . '", "", "info");</script>';
+    }
+}
 
-  if (isset($error_msg) && is_array($error_msg)) 
-  {
-    echo '<script>swal("' . addslashes(implode("\n", $error_msg)) . '", "", "error");</script>';
-  }
-
+if (!empty($error_msg)) {
+    foreach ($error_msg as $message) {
+        echo '<script>swal("' . $message . '", "", "error");</script>';
+    }
+}
 ?>
