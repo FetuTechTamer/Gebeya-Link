@@ -1,9 +1,6 @@
 <?php
 include '../components/connect.php';
 
-$success_msg = [];
-$warning_msg = [];
-
 if (isset($_POST['submit'])) {
     $id = unique_id();
     $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
@@ -96,7 +93,7 @@ if (isset($_POST['submit'])) {
 
 <!-----sweetalert cdn link---->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<scrip src='../js/script.js'></script>
+<script src='../js/script.js'></script>
 <?php include '../components/alert.php'; ?>
 </body>
 </html>
