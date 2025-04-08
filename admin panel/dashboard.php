@@ -8,6 +8,7 @@ if (isset($_COOKIE['seller_id'])) {
         $seller_id='';
         header('location:login.php')
     }
+    
 ?>
 
 <!DOCTYPE html>

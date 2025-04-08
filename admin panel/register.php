@@ -94,6 +94,8 @@ if (isset($_POST['submit'])) {
 <!-----sweetalert cdn link---->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script src='../js/script.js'></script>
-<?php include '../components/alert.php'; ?>
+<?php
+  include '../components/alert.php';
+   ?>
 </body>
 </html>
