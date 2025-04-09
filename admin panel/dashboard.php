@@ -6,7 +6,7 @@ if (isset($_COOKIE['seller_id'])) {
     }
     else{
         $seller_id='';
-        header('location:login.php')
+        header('location:login.php');
     }
     
 ?>
@@ -28,7 +28,7 @@ if (isset($_COOKIE['seller_id'])) {
 
 <!----- sweetalert cdn link ----->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<script src='../js/script.js'></script>
+<script src='../js/admin_script.js'></script>
 <?php include '../components/alert.php'; ?>
 
 </body>
