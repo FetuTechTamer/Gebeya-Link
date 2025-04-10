@@ -1,14 +1,27 @@
 <?php
 include '../components/connect.php';
 
-if (isset($_COOKIE['seller_id'])) {
-    $seller_id=$_COOKIE['seller_id'];
-    }
-    else{
-        $seller_id='';
-        header('location:login.php');
-    }
-    
+// Ensure this is at the beginning of your script
+if (!isset($_COOKIE['seller_id'])) {
+    header('location:login.php');
+    exit(); // Stop further execution
+}
+
+$seller_id = $_COOKIE['seller_id']; // Get the seller ID from cookies
+
+// Fetch the seller's profile and handle any potential errors
+$select_seller = $conn->prepare("SELECT * FROM `seller` WHERE id = ?");
+$select_seller->bind_param("s", $seller_id);
+$select_seller->execute();
+$result = $select_seller->get_result();
+
+if ($result->num_rows > 0) {
+    $fetch_profile = $result->fetch_assoc(); // Fetch the seller profile data
+} else {
+    // If the seller ID is not found, redirect to login
+    header('location:login.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,20 +29,153 @@ if (isset($_COOKIE['seller_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Login Page</title>
+    <title>Seller Dashboard</title>
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="main-container">
-      <?php include '../components/admin_header.php'; ?>
+        <?php include '../components/admin_header.php'; ?>
+        <section class="dashboard">
+            <div class="heading">
+                <h1>Dashboard</h1>
+                <img src="../image/separator.webp">
+            </div>
+            <div class="box-container">
+
+                <div class="box">
+                    <h3>Welcome!</h3>
+                    <p><?= htmlspecialchars($fetch_profile['name']); ?></p>
+                    <a href="update.php" class="btn">Update Profile</a>
+                </div>
+                
+                <div class="box">
+                    <?php
+                    $select_message = $conn->prepare("SELECT * FROM `message`");
+                    $select_message->execute(); // Correct the method name
+                    $result_messages = $select_message->get_result(); // Get the result set
+                    $number_of_msg = $result_messages->num_rows; // Get the number of messages
+                    ?>
+                    <h3><?= $number_of_msg ?></h3>
+                    <p>Unread messages</p>
+                    <a href="admin_message.php" class="btn">See messages</a>
+                </div>
+                
+                <div class="box">
+                    <?php
+                         $select_products = $conn->prepare("SELECT * FROM `product` WHERE seller_id = ?");
+                         $select_products->bind_param("s", $seller_id); // Bind seller_id
+                         $select_products->execute(); // Execute the query
+                         $result_products = $select_products->get_result(); // Get the result set
+                         $number_of_products = $result_products->num_rows; // Get the count of products
+                    ?>
+                    <h3><?= $number_of_products ?></h3>
+                    <p>Products added</p>
+                    <a href="add_product.php" class="btn">Add product</a>
+                </div>
+
+                <div class="box">
+                    <?php
+                        $status = 'active'; // Define the status as 'active'
+                        $select_active_products = $conn->prepare("SELECT * FROM `product` WHERE seller_id = ? AND status = ?");
+                        $select_active_products->bind_param("ss", $seller_id, $status); // Bind seller_id and status
+                        $select_active_products->execute(); // Execute the query
+                        $result_active_products = $select_active_products->get_result(); // Get the result set
+                        $number_of_active_products = $result_active_products->num_rows; // Get the count of active products
+                    ?>
+                    <h3><?= $number_of_active_products ?></h3>
+                    <p>Total active products</p>
+                    <a href="view_product.php" class="btn">View active products</a>
+                </div>
+
+                <div class="box">
+                    <?php
+                        $status = 'deactive'; // Define the status as 'active'
+                        $select_deactive_products = $conn->prepare("SELECT * FROM `product` WHERE seller_id = ? AND status = ?");
+                        $select_deactive_products->bind_param("ss", $seller_id, $status); // Bind seller_id and status
+                        $select_deactive_products->execute(); // Execute the query
+                        $result_deactive_products = $select_deactive_products->get_result(); // Get the result set
+                        $number_of_deactive_products = $result_deactive_products->num_rows; // Get the count of deactive products
+                    ?>
+                    <h3><?= $number_of_deactive_products ?></h3>
+                    <p>Total deactive products</p>
+                    <a href="view_product.php" class="btn">View deactive products</a>
+                </div>
+
+                <div class="box">
+                    <?php
+                    $select_users = $conn->prepare("SELECT * FROM `user`");
+                    $select_users->execute(); // Correct the method name
+                    $result_users = $select_users->get_result(); // Get the result set
+                    $number_of_users = $result_users->num_rows; // Get the number of userss
+                    ?>
+                    <h3><?= $number_of_users ?></h3>
+                    <p>users account</p>
+                    <a href="user_accounts.php" class="btn">See users</a>
+                </div>
+
+                <div class="box">
+                    <?php
+                    $select_sellers = $conn->prepare("SELECT * FROM `seller`");
+                    $select_sellers->execute(); // Correct the method name
+                    $result_sellers = $select_sellers->get_result(); // Get the result set
+                    $number_of_sellers = $result_sellers->num_rows; // Get the number of sellerss
+                    ?>
+                    <h3><?= $number_of_sellers ?></h3>
+                    <p>sellers account</p>
+                    <a href="seller_accounts.php" class="btn">See sellers</a>
+                </div>
+
+                <div class="box">
+                   <?php
+                    $select_orders = $conn->prepare("SELECT * FROM `order` WHERE seller_id = ?"); // Specify the correct column name
+                    $select_orders->bind_param("s", $seller_id); 
+                    $select_orders->execute(); // Execute the query
+                    $result_orders = $select_orders->get_result(); // Get the result set
+                    $number_of_orders = $result_orders->num_rows; // Get the number of orders
+                    ?>
+                    <h3><?= $number_of_orders ?></h3>
+                    <p>Total orders account</p>
+                    <a href="admin_order.php" class="btn">Total Orders</a>
+                </div>
+
+                <div class="box">
+                   <?php
+                    $status = 'in progress';
+                    $select_confirm_orders = $conn->prepare("SELECT * FROM `order` WHERE seller_id = ? AND status=?"); // Specify the correct column name
+                    $select_confirm_orders->bind_param("ss", $seller_id, $status); 
+                    $select_confirm_orders->execute(); // Execute the query
+                    $result_confirm_orders = $select_confirm_orders->get_result(); // Get the result set
+                    $number_of_confirm_orders = $result_confirm_orders->num_rows; // Get the number of confirm_orders
+                    ?>
+                    <h3><?= $number_of_confirm_orders ?></h3>
+                    <p>Total confirm orders </p>
+                    <a href="admin_order.php" class="btn">confirm_orders</a>
+                </div>
+
+                <div class="box">
+                   <?php
+                    $status = 'canceled';
+                    $select_canceled_orders = $conn->prepare("SELECT * FROM `order` WHERE seller_id = ? AND status=?"); // Specify the correct column name
+                    $select_canceled_orders->bind_param("ss", $seller_id, $status); 
+                    $select_canceled_orders->execute(); // Execute the query
+                    $result_canceled_orders = $select_canceled_orders->get_result(); // Get the result set
+                    $number_of_canceled_orders = $result_canceled_orders->num_rows; // Get the number of canceled_orders
+                    ?>
+                    <h3><?= $number_of_canceled_orders ?></h3>
+                    <p>Total canceled orders </p>
+                    <a href="admin_order.php" class="btn">canceled_orders</a>
+                </div>
+
+            </div>
+        </section>
     </div>   
 
-
-<!----- sweetalert cdn link ----->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<script src='../js/admin_script.js'></script>
-<?php include '../components/alert.php'; ?>
-
+    <!----- sweetalert cdn link ----->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="../js/admin_script.js"></script>
+    <?php include '../components/alert.php'; ?>
 </body>
 </html>
+
+39 42
