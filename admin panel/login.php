@@ -5,6 +5,8 @@ include '../components/connect.php';
 if (isset($_POST['submit'])) {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password']; 
+    
+  
 
     $select_seller = $conn->prepare("SELECT * FROM `seller` WHERE email=?");
     $select_seller->bind_param("s", $email);

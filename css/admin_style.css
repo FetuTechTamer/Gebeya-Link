@@ -20,8 +20,7 @@
 }
 /*-----global styling-----*/
 body{
-    background-image:url(../image/background.png);
-    background-repeat: repeat-y;
+    background-image:url(../image/back2.png);
     background-position: center;
 }
 html{
@@ -411,34 +410,47 @@ header .right{
 }
 
 /*------dashboard-----*/
-.dashboard h1{
-    padding-top: 100px;
-    
+.dashboard .heading {
+    text-align: center;
 }
-.dashboard  img {
-    display: block; /* Makes the image a block element */
-    margin: 0 auto; /* Centers the image horizontally */
+.dashboard h1{
+    text-align: center;
+    padding-top: 100px;
+}
+.dashboard .heading img {
+    width: 100%; 
+    max-width: 600px;
+    margin: 0 auto; 
+}
+.dashboard .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .dashboard .box-container .box{
     text-align: center;
-    border-radius: 5rem;
+    border-radius: .5rem;
     padding: 1.5rem;
     padding-bottom: 3rem;
+    flex: 1 1 calc(50% - 20px); 
+    margin: 10px; 
 }
 .dashboard .box-container .box h3{
-    font-size:2.7rem;
+    font-size:1.8rem;
     margin-bottom: -1rem;
 }
 .dashboard .box-container .box p{
     padding: 1rem;
-    font-size: 1.8rem;
-}
-.dashboard .box-container .box p{
-    padding: 1rem;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     text-transform: capitalize;
     margin: 1rem 0;
 }
+@media (max-width: 768px) {
+    .dashboard .box-container .box {
+        flex: 1 1 100%; 
+    }
+}
+
 /*------media screen--------*/
 @media screen and (max-width:991px){
     .toggle-btn{

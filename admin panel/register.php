@@ -9,10 +9,23 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password']; 
     $confirm_password = $_POST['confirm_password']; 
 
-    // Hash passwords
+    // Initialize warning messages array
+    $warning_msg = [];
+
+    // Validate email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $warning_msg[] = 'Invalid email format';
+    }
+
+    // Check password criteria
     if ($password !== $confirm_password) {
         $warning_msg[] = 'Confirm password does not match!';
-    } else {
+    } elseif (strlen($password) <3) {
+        $warning_msg[] = 'Password must be at least 3 characters long';
+    }
+
+    // Hash passwords if there are no validation errors
+    if (empty($warning_msg)) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $image = $_FILES['image']['name'];
@@ -45,6 +58,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
