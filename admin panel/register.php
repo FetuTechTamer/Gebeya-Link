@@ -1,64 +1,64 @@
 <?php
+session_start(); // Start the session
 include '../components/connect.php';
 
+// Initialize message variables
+$success_msg = [];
+$warning_msg = [];
+
+// Check if form is submitted
 if (isset($_POST['submit'])) {
     $id = unique_id();
     $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     
-    $password = $_POST['password']; 
-    $confirm_password = $_POST['confirm_password']; 
+    $password = sha1($_POST['password']); 
+    $password = filter_var($password, FILTER_SANITIZE_STRING);
 
-    // Initialize warning messages array
-    $warning_msg = [];
+    $confirm_password = sha1($_POST['confirm_password']); 
+    $confirm_password = filter_var($confirm_password, FILTER_SANITIZE_STRING);
 
-    // Validate email format
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $warning_msg[] = 'Invalid email format';
-    }
+    $image = $_FILES['image']['name'];
+    $image = filter_var($image, FILTER_SANITIZE_STRING);
 
-    // Check password criteria
-    if ($password !== $confirm_password) {
-        $warning_msg[] = 'Confirm password does not match!';
-    } elseif (strlen($password) <3) {
-        $warning_msg[] = 'Password must be at least 3 characters long';
-    }
+    $image_tmp_name = $_FILES['image']['tmp_name'];
+    $image_size = $_FILES['image']['size'];
+    $ext = pathinfo($image, PATHINFO_EXTENSION);
+    $rename = unique_id() . '.' . $ext;
+    $image_folder = '../uploaded_files/' . $rename;
 
-    // Hash passwords if there are no validation errors
-    if (empty($warning_msg)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    // Check if the email already exists
+    $select_seller = $conn->prepare("SELECT * FROM `seller` WHERE email = ?");
+    $select_seller->bind_param("s", $email);
+    $select_seller->execute();
+    $result = $select_seller->get_result();
 
-        $image = $_FILES['image']['name'];
-        $image_tmp_name = $_FILES['image']['tmp_name'];
-        $image_size = $_FILES['image']['size'];
-        $ext = strtolower(pathinfo($image, PATHINFO_EXTENSION));
-        $rename = unique_id() . '.' . $ext;
-        $image_folder = '../uploaded_files/' . $rename;
-
-        // Check if the email already exists
-        $select_seller = $conn->prepare("SELECT * FROM `seller` WHERE email=?");
-        $select_seller->bind_param("s", $email);
-        $select_seller->execute();
-        $result = $select_seller->get_result();
-
-        if ($result->num_rows > 0) {
-            $warning_msg[] = 'Email already exists';
+    if ($result->num_rows > 0) {
+        $warning_msg[] = 'Email already exists';
+    } else {
+        if ($password != $confirm_password) {
+            $warning_msg[] = 'Confirm password not matched';
         } else {
-            // Insert new seller
             $insert_seller = $conn->prepare("INSERT INTO `seller` (id, name, email, password, image) VALUES (?, ?, ?, ?, ?)");
-            $insert_seller->bind_param("sssss", $id, $name, $email, $hashed_password, $rename);
-
+            $insert_seller->bind_param("sssss", $id, $name, $email, $password, $rename);
             if ($insert_seller->execute()) {
                 move_uploaded_file($image_tmp_name, $image_folder);
                 $success_msg[] = 'New seller registered! Please log in now.';
             } else {
-                $warning_msg[] = 'Registration failed: ' . $insert_seller->error;
+                $warning_msg[] = 'Failed to register the seller.';
             }
         }
     }
+
+    // Store messages in session
+    $_SESSION['success_msg'] = $success_msg;
+    $_SESSION['warning_msg'] = $warning_msg;
+
+    // Redirect to avoid resubmission
+    header('Location: register.php');
+    exit();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -100,16 +100,31 @@ if (isset($_POST['submit'])) {
             <p>Your Profile Image<span>*</span></p>
             <input type="file" name="image" accept="image/*" required class="box">
         </div>
-        <p class="link">Already have an account?<a href="login.php"> Login now</a></p>
+        <p class="link">Already have an account?<a href="login.php"> login now</a></p>
         <input type="submit" name="submit" value="Register Now" class="btn">
     </form>
 </div>
 
-<!-----sweetalert cdn link---->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<script src='../js/script.js'></script>
+<!----- SweetAlert CDN link ----->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="../js/script.js"></script>
+
 <?php
-  include '../components/alert.php';
-   ?>
+// Display alerts if there are any messages
+if (isset($_SESSION['success_msg'])) {
+    foreach ($_SESSION['success_msg'] as $message) {
+        echo "<script>swal('Success', '$message', 'success');</script>";
+    }
+    unset($_SESSION['success_msg']); // Clear the message after displaying
+}
+
+if (isset($_SESSION['warning_msg'])) {
+    foreach ($_SESSION['warning_msg'] as $message) {
+        echo "<script>swal('Warning', '$message', 'warning');</script>";
+    }
+    unset($_SESSION['warning_msg']); // Clear the message after displaying
+}
+?>
+
 </body>
 </html>

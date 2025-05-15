@@ -1,6 +1,6 @@
 <header>
     <div class="logo">
-        <img src="../image/logo2.webp" alt="Company Logo" width="150">
+        <img src="../image/logo.webp" alt="Company Logo" width="150">
     </div>
     <div class="right">
         <div class="fas fa-user" id="user-btn"></div>
@@ -11,49 +11,43 @@
         $select_profile = $conn->prepare("SELECT * FROM `seller` WHERE id=?");
         $select_profile->bind_param("s", $seller_id);
         $select_profile->execute();
-
         $result = $select_profile->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
         ?>
             <div class="profile">
                 <img src="../uploaded_files/<?= htmlspecialchars($row['image']); ?>" class="logo-img" width="100" alt="Profile Image">
-                <p><?= htmlspecialchars($row['name']); ?></p> 
+                <p><?= htmlspecialchars($row['name']); ?></p>
                 <div class="flex-btn">
                     <a href="profile.php" class="btn">Profile</a>
                     <a href="../components/admin_logout.php" onclick="return confirm('Logout from this website?');" class="btn">Logout</a>
                 </div>
             </div>
-        <?php 
-        } 
-        ?>
+        <?php } ?>
     </div>
 </header>
 
 <div class="sidebar-container">
     <div class="sidebar">
-    <?php
+        <?php
         $select_profile = $conn->prepare("SELECT * FROM `seller` WHERE id=?");
         $select_profile->bind_param("s", $seller_id);
         $select_profile->execute();
-
         $result = $select_profile->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
         ?>
             <div class="profile">
                 <img src="../uploaded_files/<?= htmlspecialchars($row['image']); ?>" class="logo-img" width="100" alt="Profile Image">
-                <p><?= htmlspecialchars($row['name']); ?></p> 
+                <p><?= htmlspecialchars($row['name']); ?></p>
             </div>
-        <?php 
-        } 
-        ?>
+        <?php } ?>
         <h5>Menu</h5>
         <div class="navbar">
             <ul>
                 <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="add_product.php"><i class="fas fa-shopping-bag"></i> Add Products</a></li>
-                <li><a href="view_product.php"><i class="fas fa-utensils"></i> View Products</a></li>
+                <li><a href="add_products.php"><i class="fas fa-shopping-bag"></i> Add Products</a></li>
+                <li><a href="view_products.php"><i class="fas fa-utensils"></i> View Products</a></li>
                 <li><a href="user_accounts.php"><i class="fas fa-user-circle"></i> Accounts</a></li>
                 <li><a href="../components/admin_logout.php" onclick="return confirm('Logout from this website?');"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
@@ -67,3 +61,4 @@
         </div>
     </div>
 </div>
+

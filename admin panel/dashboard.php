@@ -1,29 +1,20 @@
 <?php
 include '../components/connect.php';
 
-// Ensure this is at the beginning of your script
-if (!isset($_COOKIE['seller_id'])) {
-    header('location:login.php');
-    exit(); // Stop further execution
-}
+if (isset($_COOKIE['seller_id'])) {
+    $seller_id = $_COOKIE['seller_id'];
 
-$seller_id = $_COOKIE['seller_id']; // Get the seller ID from cookies
-
-// Fetch the seller's profile and handle any potential errors
-$select_seller = $conn->prepare("SELECT * FROM `seller` WHERE id = ?");
-$select_seller->bind_param("s", $seller_id);
-$select_seller->execute();
-$result = $select_seller->get_result();
-
-if ($result->num_rows > 0) {
-    $fetch_profile = $result->fetch_assoc(); // Fetch the seller profile data
+    // Fetch profile data
+    $fetch_profile_query = $conn->prepare("SELECT * FROM `seller` WHERE id = ?");
+    $fetch_profile_query->bind_param("s", $seller_id);
+    $fetch_profile_query->execute();
+    $fetch_profile = $fetch_profile_query->get_result()->fetch_assoc(); // Fetch the profile data
 } else {
-    // If the seller ID is not found, redirect to login
+    $seller_id = '';
     header('location:login.php');
-    exit();
+    exit(); // Make sure to exit after redirecting
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +62,7 @@ if ($result->num_rows > 0) {
                     ?>
                     <h3><?= $number_of_products ?></h3>
                     <p>Products added</p>
-                    <a href="add_product.php" class="btn">Add product</a>
+                    <a href="add_products.php" class="btn">Add product</a>
                 </div>
 
                 <div class="box">
@@ -85,7 +76,7 @@ if ($result->num_rows > 0) {
                     ?>
                     <h3><?= $number_of_active_products ?></h3>
                     <p>Total active products</p>
-                    <a href="view_product.php" class="btn">View active products</a>
+                    <a href="view_products.php" class="btn">View active products</a>
                 </div>
 
                 <div class="box">
@@ -99,7 +90,7 @@ if ($result->num_rows > 0) {
                     ?>
                     <h3><?= $number_of_deactive_products ?></h3>
                     <p>Total deactive products</p>
-                    <a href="view_product.php" class="btn">View deactive products</a>
+                    <a href="view_products.php" class="btn">View deactive products</a>
                 </div>
 
                 <div class="box">
@@ -128,7 +119,7 @@ if ($result->num_rows > 0) {
 
                 <div class="box">
                    <?php
-                    $select_orders = $conn->prepare("SELECT * FROM `order` WHERE seller_id = ?"); // Specify the correct column name
+                    $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE seller_id = ?"); // Specify the correct column name
                     $select_orders->bind_param("s", $seller_id); 
                     $select_orders->execute(); // Execute the query
                     $result_orders = $select_orders->get_result(); // Get the result set
@@ -142,7 +133,7 @@ if ($result->num_rows > 0) {
                 <div class="box">
                    <?php
                     $status = 'in progress';
-                    $select_confirm_orders = $conn->prepare("SELECT * FROM `order` WHERE seller_id = ? AND status=?"); // Specify the correct column name
+                    $select_confirm_orders = $conn->prepare("SELECT * FROM `orders` WHERE seller_id = ? AND status=?"); // Specify the correct column name
                     $select_confirm_orders->bind_param("ss", $seller_id, $status); 
                     $select_confirm_orders->execute(); // Execute the query
                     $result_confirm_orders = $select_confirm_orders->get_result(); // Get the result set
@@ -156,7 +147,7 @@ if ($result->num_rows > 0) {
                 <div class="box">
                    <?php
                     $status = 'canceled';
-                    $select_canceled_orders = $conn->prepare("SELECT * FROM `order` WHERE seller_id = ? AND status=?"); // Specify the correct column name
+                    $select_canceled_orders = $conn->prepare("SELECT * FROM `orders` WHERE seller_id = ? AND status=?"); // Specify the correct column name
                     $select_canceled_orders->bind_param("ss", $seller_id, $status); 
                     $select_canceled_orders->execute(); // Execute the query
                     $result_canceled_orders = $select_canceled_orders->get_result(); // Get the result set
@@ -172,7 +163,7 @@ if ($result->num_rows > 0) {
     </div>   
 
     <!----- sweetalert cdn link ----->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="../js/admin_script.js"></script>
     <?php include '../components/alert.php'; ?>
 </body>
