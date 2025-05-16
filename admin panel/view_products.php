@@ -34,10 +34,10 @@ if (isset($_POST['delete'])) {
     <div class="main-container">
         <?php include '../components/admin_header.php'; ?>
         <section class="show-post">
-           <div class="heading" style="text-align: center;">
-    <h1 style="padding-top: 100px;"> View Products</h1>
-    <img src="../image/separator.webp">
-</div>
+            <div class="heading" style="text-align: center;">
+                <h1 style="padding-top: 100px;">Your Products</h1>
+                <img src="../image/separator.webp" style="width: 100%; max-width: 600px; margin: 0 auto;">
+            </div>
             <div class="box-container">
                <?php
                // Prepare the SQL statement to select products

@@ -56,10 +56,11 @@ $result_product = $select_product->get_result();
     <div class="main-container">
         <?php include '../components/admin_header.php'; ?>
         <section class="read-post">
-            <div class="heading">
-                <h1>Product Detail</h1>
-                <img src="../image/separator.webp" alt="Separator">
+            <div class="heading" style="text-align: center;">
+                <h1 style="padding-top: 100px;">Product Detail</h1>
+                <img src="../image/separator.webp" style="width: 100%; max-width: 600px; margin: 0 auto;">
             </div>
+           
             <?php 
             if ($result_product->num_rows > 0) { 
                 while ($fetch_product = $result_product->fetch_assoc()) { 
@@ -82,7 +83,7 @@ $result_product = $select_product->get_result();
                 <div class="flex-btn"> 
                     <a href="edit_product.php?id=<?= $fetch_product['id']; ?>" class="btn">Edit</a> 
                     <button type="submit" name="delete" class="btn" onclick="return confirm('Delete this product?');">Delete</button> 
-                    <a href="view_product.php?post_id=<?= $fetch_product['id']; ?>" class="btn">Go Back</a> 
+                    <a href="view_products.php?post_id=<?= $fetch_product['id']; ?>" class="btn">Go Back</a> 
                 </div> 
             </form>
             <?php
