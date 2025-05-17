@@ -39,13 +39,14 @@ if (!empty($warning_msg)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Login Page</title>
+     <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
 <div class="form-container">
-    <form action="" method="POST" class="register">
+    <form action="" method="POST" class="register" style=" transform: none;">
         <h3>Login Now</h3>
         <div class="input-field">
             <p>Your Email<span>*</span></p>

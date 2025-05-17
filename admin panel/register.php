@@ -66,13 +66,14 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Registration Page</title>
+     <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
 <div class="form-container">
-    <form action="" method="POST" enctype="multipart/form-data" class="register">
+    <form action="" method="POST" enctype="multipart/form-data" class="register" style=" transform: none;">
         <h3>Register Now</h3>
         <div class="flex">
             <div class="col">

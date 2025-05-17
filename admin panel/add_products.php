@@ -96,6 +96,7 @@ if (isset($_POST['draft'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Products</title>
+    <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -103,13 +104,13 @@ if (isset($_POST['draft'])) {
     <div class="main-container">
         <?php include '../components/admin_header.php'; ?>
         <section class="post-editor">
-            <div class="heading" style="text-align: center;">
-                <h1 style="padding-top: 100px;">Add Products</h1>
-                <img src="../image/separator.webp" style="width: 100%; max-width: 600px; margin: 0 auto;">
+            <div class="heading" >
+                <h1 >Add Products</h1>
+                <img src="../image/separator.webp">
             </div>
             
             <div class="form-container">
-                <form action="" method="POST" enctype="multipart/form-data" class="register" style="transform: translateX(80px);">
+                <form action="" method="POST" enctype="multipart/form-data" class="register">
                     <div class="input-field">
                         <p>Product Name <span>*</span></p>
                         <input type="text" name="name" maxlength="100" placeholder="Add product name" required>

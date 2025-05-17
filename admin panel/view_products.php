@@ -2,24 +2,23 @@
 include '../components/connect.php';
 
 if (isset($_COOKIE['seller_id'])) {
-    $seller_id=$_COOKIE['seller_id'];
-}else{
-    $seller_id='';
+    $seller_id = $_COOKIE['seller_id'];
+} else {
+    $seller_id = '';
     header('location:login.php');
 }
-//delete product
+
+// Delete product
 if (isset($_POST['delete'])) {
     $p_id = $_POST['product_id'];
     $p_id = filter_var($p_id, FILTER_SANITIZE_STRING);
-
-    // Use backticks for table names in MySQL
+    
     $delete_product = $conn->prepare("DELETE FROM `product` WHERE id=?");
     $delete_product->bind_param("s", $p_id); 
     $delete_product->execute();
 
     $success_msg = 'Product deleted successfully!';
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,64 +26,64 @@ if (isset($_POST['delete'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Products</title>
+    <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
 </head>
 <body>
     <div class="main-container">
         <?php include '../components/admin_header.php'; ?>
         <section class="show-post">
-            <div class="heading" style="text-align: center;">
-                <h1 style="padding-top: 100px;">Your Products</h1>
-                <img src="../image/separator.webp" style="width: 100%; max-width: 600px; margin: 0 auto;">
+            <div class="heading">
+                <h1 >Your Products</h1>
+                <img src="../image/separator.webp" >
             </div>
             <div class="box-container">
-               <?php
-               // Prepare the SQL statement to select products
-               $select_products = $conn->prepare("SELECT * FROM `product` WHERE seller_id = ?");
-               $select_products->bind_param("s", $seller_id); // Bind the seller_id parameter
-               $select_products->execute(); // Corrected from excute() to execute()// Execute the prepared statement
-               $result_products = $select_products->get_result(); // Get the result set
+                <?php
+                // Prepare the SQL statement to select products
+                $select_products = $conn->prepare("SELECT * FROM `product` WHERE seller_id = ?");
+                $select_products->bind_param("s", $seller_id);
+                $select_products->execute();
+                $result_products = $select_products->get_result();
 
-               if ($result_products->num_rows > 0) { // Check if there are any products
-                   while ($fetch_products = $result_products->fetch_assoc()) { // Fetch each product
-               ?>
-               <form action="" method="post" class="box">
-                   <input type="hidden" name="product_id" value="<?= $fetch_products['id']; ?>">
-                   <?php if ($fetch_products['image'] != '') { ?>
-                       <img src="../uploaded_files/<?= $fetch_products['image']; ?>" class="image" alt="Product Image">
-                   <?php } ?>
-                   <div class="status" style="color: <?php if($fetch_products['status'] == 'active') { echo 'limegreen'; } else { echo 'coral'; } ?>">
-                      <?= $fetch_products['status']; ?>
-                  </div>
-                  
-                   <div class="price"><?= $fetch_products['price']; ?></div>
-                   <div class="content">
-                       <img src="../image/" class="shape" alt="Shape Image">
-                       <div class="title"><?= $fetch_products['name']; ?></div>
-                       <div class="flex-btn">
-                           <a href="edit_product.php?id=<?= $fetch_products['id']; ?>" class="btn">edit</a>
-                           <button type="submit" name="delete" class="btn" onclick="return confirm('Delete this product?');">delete</button>
-                           <a href="read_product.php?post_id=<?= $fetch_products['id']; ?>" class="btn">read</a>
-                       </div>
-                   </div>
-               </form>
-               <?php
-                   }
-               } else {
-                   echo '
-                   <div class="empty">
-                       <p>No products added yet! </p>
-                       <a href="add_products.php" class="btn" style="margin-top:1.5rem;">Add Product</a>
-                   </div>
-                   ';
-               }
-               ?>
+                if ($result_products->num_rows > 0) {
+                    while ($fetch_products = $result_products->fetch_assoc()) {
+                ?>
+                <form action="" method="post" class="box" ;>
+                    <input type="hidden" name="product_id" value="<?= $fetch_products['id']; ?>">
+                    <?php if ($fetch_products['image'] != '') { ?>
+                        <img src="../uploaded_files/<?= $fetch_products['image']; ?>" class="image" alt="Product Image">
+                    <?php } ?>
+                    <div class="status" style="color: <?= $fetch_products['status'] == 'active' ? 'limegreen' : 'coral'; ?>">
+                        <?= $fetch_products['status']; ?>
+                    </div>
+                    <div class="price">$<?= $fetch_products['price']; ?></div>
+                    <div class="content">
+                        <div class="title"><?= $fetch_products['name']; ?></div>
+                        <div class="flex-btn">
+                            <a href="edit_product.php?id=<?= $fetch_products['id']; ?>" class="btn">edit</a>
+                            <button type="submit" name="delete" class="btn" onclick="return confirm('Delete this product?');">delete</button>
+                            <a href="read_product.php?post_id=<?= $fetch_products['id']; ?>" class="btn">read</a>
+                        </div>
+                    </div>
+                </form>
+                <?php
+                    }
+                } else {
+                    echo '
+                    <div class="empty">
+                        <p>No products added yet!</p>
+                        <a href="add_products.php" class="btn" style="margin-top:1.5rem;">Add Product</a>
+                    </div>
+                    ';
+                }
+                ?>
             </div>
         </section>
-    </div>   
-
-
+    </div>
+</body>
+</html>
 
     
 

@@ -19,7 +19,7 @@
                 <img src="../uploaded_files/<?= htmlspecialchars($row['image']); ?>" class="logo-img" width="100" alt="Profile Image">
                 <p><?= htmlspecialchars($row['name']); ?></p>
                 <div class="flex-btn">
-                    <a href="profile.php" class="btn">Profile</a>
+                    <a href="profile.php" class="btn" style="margin: 0 10px;">Profile</a>
                     <a href="../components/admin_logout.php" onclick="return confirm('Logout from this website?');" class="btn">Logout</a>
                 </div>
             </div>

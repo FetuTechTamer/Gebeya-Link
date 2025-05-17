@@ -4,11 +4,11 @@ include '../components/connect.php';
 if (isset($_COOKIE['seller_id'])) {
     $seller_id = $_COOKIE['seller_id'];
 } else {
-    $seller_id = '';
     header('location:login.php');
-    exit(); // Make sure to exit after redirection
+    exit(); // Ensure to exit after redirection
 }
 
+// Get the product ID from the URL
 $get_id = $_GET['post_id'];
 
 // Delete product 
@@ -37,9 +37,9 @@ if (isset($_POST['delete'])) {
     exit(); // Ensure to exit after redirection
 }
 
-// Fetch products for the seller
-$select_product = $conn->prepare("SELECT * FROM `product` WHERE seller_id = ?");
-$select_product->bind_param("s", $seller_id);
+// Fetch the selected product for the seller
+$select_product = $conn->prepare("SELECT * FROM `product` WHERE id = ? AND seller_id = ?");
+$select_product->bind_param("ss", $get_id, $seller_id);
 $select_product->execute();
 $result_product = $select_product->get_result();
 ?>
@@ -48,7 +48,8 @@ $result_product = $select_product->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Products</title>
+    <title>View Product</title>
+     <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -57,15 +58,15 @@ $result_product = $select_product->get_result();
         <?php include '../components/admin_header.php'; ?>
         <section class="read-post">
             <div class="heading" style="text-align: center;">
-                <h1 style="padding-top: 100px;">Product Detail</h1>
-                <img src="../image/separator.webp" style="width: 100%; max-width: 600px; margin: 0 auto;">
+                <h1 >Product Detail</h1>
+                <img src="../image/separator.webp" >
             </div>
            
             <?php 
             if ($result_product->num_rows > 0) { 
-                while ($fetch_product = $result_product->fetch_assoc()) { 
+                $fetch_product = $result_product->fetch_assoc(); // Fetch the selected product
             ?>
-            <form action="" method="post" class="box"> 
+            <form action="" method="post" class="box" style=" transform: none;"> 
                 <input type="hidden" name="product_id" value="<?= $fetch_product['id']; ?>"> 
 
                 <div class="status" style="color: <?= $fetch_product['status'] == 'active' ? 'limegreen' : 'coral'; ?>">
@@ -83,15 +84,14 @@ $result_product = $select_product->get_result();
                 <div class="flex-btn"> 
                     <a href="edit_product.php?id=<?= $fetch_product['id']; ?>" class="btn">Edit</a> 
                     <button type="submit" name="delete" class="btn" onclick="return confirm('Delete this product?');">Delete</button> 
-                    <a href="view_products.php?post_id=<?= $fetch_product['id']; ?>" class="btn">Go Back</a> 
+                    <a href="view_products.php" class="btn">Go Back</a> 
                 </div> 
             </form>
             <?php
-                }
             } else {
                 echo '
                 <div class="empty">
-                    <p>No products found! <br> <a href="add_product.php" class="btn" style="margin-top:1.5rem;">Add Product</a></p>
+                    <p>No product found!</p>
                 </div>
                 ';
             }
@@ -105,6 +105,3 @@ $result_product = $select_product->get_result();
     <?php include '../components/alert.php'; ?>
 </body>
 </html>
-
-
-1:29:17
