@@ -106,7 +106,6 @@ if (!empty($old_pass) && !empty($new_pass) && !empty($cpass)) {
     $warning_msg[] = 'Please fill in all password fields!';
 }
 
-
 }
 ?>
 

@@ -43,11 +43,11 @@ $total_orders = $result_orders->num_rows; // Get the total number of orders
         <?php include '../components/admin_header.php'; ?>
         <section class="seller-profile">
             <div class="heading">
-                <h1>profile details</h1>
-                <img src="../image/separator.webp">
+                <h1 style="margin-left:300px;">profile details</h1>
+                <img src="../image/separator.webp" style="margin-left:300px;">
             </div>
 
-            <div class="details"> 
+            <div class="details" style=" transform: translateX(200px);"> 
                 <div class="seller"> 
                     <img src="../uploaded_files/<?= $fetch_profile['image']; ?>" alt="Profile Image"> 
                     <h3 class="name"><?= $fetch_profile['name']; ?></h3> 

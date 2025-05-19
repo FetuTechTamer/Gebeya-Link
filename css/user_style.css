@@ -110,7 +110,7 @@ input[type='submit']:hover{
 }
 .flex-btn{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 .flex-btn .btn{
     margin: .5rem;
@@ -118,30 +118,34 @@ input[type='submit']:hover{
 .banner {
     width: 100%;
     height: 80vh;
-    background-image: url("../image/banner.jpg");
+    background-image: url("../image/about/banner.jpg");
     background-position: center center;
     background-size: cover;
     display: flex;
     align-items: center;
 }
-.banner-detail {
-    padding: 4%;
+.banner .detail {
+    padding-left: 4%;
     color: gray;
     line-height: 1.5;
 }
-.banner-detail p {
+.banner .detail p {
     font-size: 16px;
     margin-bottom: 1rem;
 }
-.banner-detail span {
+.banner .detail h1{
+    text-transform: capitalize;
+    color: #000;
+}
+.banner .detail span {
     text-transform: uppercase;
     font-size: 1.1rem;
     margin-top: 1rem;
 }
-.banner-detail span a {
+.banner .detail span a {
     color: var(--main-color); 
 }
-.banner-detail span i {
+.banner .detail span i {
     margin: 0 1rem; /
 }
 /*-----custom scroll bar----*/
@@ -267,7 +271,7 @@ input[type='submit']:hover{
 /*-------header----*/
 .header {
     padding: .5rem 4%;
-    background-color: #FFF;
+     background-color: #F4F8EE;
     box-shadow: 0px 5px 10px 0px #aaa;
     position: sticky;
     top: 0;
@@ -281,6 +285,19 @@ input[type='submit']:hover{
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+/* i added this*/
+.header .flex .icons {
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Vertically center the icons */
+    gap: 1rem; /* Space between icons */
+}
+
+.header .flex .icons div, 
+.header .flex .icons a { 
+    font-size: .5rem; 
+    color: var(--main-color); 
+    cursor: pointer; 
 }
 .header .flex .search-form {
     width: 30rem;
@@ -580,15 +597,15 @@ input[type='submit']:hover{
     outline: 2px solid var(--main-color); 
     outline-offset: -0.2em; 
 }
-.ice-container { 
+.produce-container { 
     position: relative; 
-    background-image: url('../image/ice-bg.webp'); 
+    background-image: url('../image/catagory/menu.jpg'); 
     background-size: cover; 
     background-position: center; 
     background-attachment: fixed; 
     min-height: 100vh; 
 } 
-.ice-container .overlay { 
+.produce-container .overlay { 
     position: absolute; 
     left: 0; 
     right: 0; 
@@ -597,22 +614,22 @@ input[type='submit']:hover{
     background-color: #000; 
     opacity: 0.5; /* Set desired opacity */
 }
-.ice-container .detail { 
+.produce-container .detail { 
     width: 100%; 
     position: absolute; 
     top: 30%; 
     text-align: center; 
     color: #fff; 
 } 
-.ice-container .detail h1 { 
+.produce-container .detail h1 { 
     font-size: 3rem; 
 } 
-.ice-container .detail p { 
+.produce-container .detail p { 
     font-size: 1.5rem; 
     line-height: 1.5; 
     padding-bottom: 2em; 
 } 
-.ice-container .detail .btn { 
+.produce-container .detail .btn { 
     background-color: #000; 
 }
 .taste { 
@@ -771,20 +788,21 @@ input[type='submit']:hover{
     text-align: right; 
 }
 .pride { 
-    background-image: url('../image/ice-cream-banner-bg.png'); 
+    background-image: url('../image/catagory/menu.jpg'); 
     background-position: center; 
     background-repeat: no-repeat; 
     background-size: cover; 
-    margin: 80px 0 80px 0; 
+    margin: 80px 0; 
     padding: 220px 0 273px; 
     display: flex; 
     align-items: center; 
-    justify-content: flex-end; 
-    text-align: center; 
+    justify-content: flex-start; /* Change this line */
+    text-align: left; /* Change text alignment to left */
 } 
+
 .pride .detail { 
-    padding-right: 10%; 
-} 
+    padding-left: 10%;
+}
 .pride .detail p { 
     color: #666; 
     font-size: 20px; 
@@ -792,7 +810,7 @@ input[type='submit']:hover{
     margin-bottom: 2rem; 
 }
 .newsletter { 
-    background-image: url('../image/bn3.3.webp'); 
+    background-image: url('../image/catagory/mid-banner-1.jpg'); 
     padding-top: 70px; 
     padding-bottom: 100px; 
     background-attachment: fixed; 
@@ -860,7 +878,7 @@ input[type='submit']:hover{
     color: gray; 
 }
 footer { 
-    background-image: url('../image/footer-bg.jpg'); 
+    background-image: url('../image/catagory/footer-bg.jpg'); 
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center; 
@@ -932,6 +950,163 @@ footer .bottom {
 footer .bottom a { 
     text-transform: capitalize; 
     color: #000; 
+}
+/*-----about section-----*/
+.developer {
+    padding-left: 4%;
+}
+.developer .box { 
+    line-height: 1.5; 
+    text-align: center; 
+    box-shadow: none; 
+} 
+.developer .box img { 
+    width: 70%; 
+    margin-bottom: -2rem; 
+} 
+.developer .box p { 
+    font-size: 1.3rem; 
+    color: #666; 
+    margin-bottom: 2rem; 
+}
+.story { 
+    background-image: url('../image/about/about_bg.jpg'); 
+    position: relative; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    min-height: 100vh; 
+    text-align: center; 
+    line-height: 1.5; 
+} 
+.story p { 
+    padding-bottom: 2rem; 
+    color: gray; 
+}
+/*-----media query-----*/
+.container { 
+    padding: 4%; 
+    padding-bottom: 0; 
+} 
+.container .box-container .img-box { 
+    margin: 1rem; 
+} 
+.container .box-container .img-box img { 
+    background-size: contain; 
+    width: 80%; 
+    margin-bottom: -1.1rem; 
+} 
+.container .box-container .box { 
+    text-align: center; 
+    line-height: 2; 
+    box-shadow: none; 
+} 
+.container .box-container p { 
+    color: #666; 
+    font-size: 16px; 
+    margin-bottom: 2rem; 
+}
+.team { 
+    background-image: url('../image/bn3.3.webp'); 
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    padding: 100px 6%; 
+} 
+.team .box-container .box { 
+    overflow: hidden; 
+} 
+.team .box-container .box img { 
+    width: 100%; 
+    transition: transform 0.5s; 
+} 
+.team .box-container .box:hover img { 
+    transform: scale(1.1); 
+}
+.team .box-container .box .content { 
+    position: relative; 
+    display: block; 
+    background-color: #fff; 
+    padding: 43px 30px 42px 30px; 
+    margin-top: -80px; 
+    border-top-right-radius: 80px; 
+    text-align: center; 
+    line-height: 1.5; 
+    text-transform: capitalize; 
+} 
+.team .box-container .box .content .shape { 
+    position: absolute; 
+    left: 0; 
+    top: -80px; 
+    width: 80px; 
+    height: 80px; 
+    background-repeat: no-repeat; 
+}
+.standards { 
+    background-image: url('../image/std.jpg'); 
+    padding: 135px 0 210px; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-size: cover; 
+    display: flex; 
+    align-items: flex-start; 
+    text-align: center; 
+    line-height: 1.5; 
+    padding-left: 6%; 
+} 
+.standards p { 
+    font-size: 1.6rem; 
+    color: #666; 
+    padding-bottom: .5rem; 
+} 
+.standards i { 
+    font-size: 2rem; 
+    color: var(--main-color); 
+}
+.mission { 
+    background-image: url('../image/bgl.webp'); 
+    background-position: center; 
+    background-size: cover; 
+    padding: 0 4%; 
+    position: relative; 
+} 
+.mission .box-container .box{
+    box-shadow: none;
+    background-color: transparent;
+    border:none;
+}
+.mission .box-container .box .detail { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin: .6rem 0; 
+} 
+.mission .box-container .box .detail h2 { 
+    color: var(--main-color); 
+    margin-bottom: .5rem; 
+} 
+.mission .box-container .box .detail p { 
+    color: #666; 
+    line-height: 1.5; 
+} 
+.mission .box-container .box .detail .img-box { 
+    text-align: center; 
+    margin-right: 1rem; 
+}
+.mission .box-container .box .detail .img-box img { 
+    width: 130px; 
+    height: 130px; 
+    border-radius: 50%; 
+    object-fit: contain; 
+    border: 2px dashed var(--main-color); 
+} 
+.mission .img { 
+    width: 100%; 
+    margin-bottom: -3,7rem; 
 }
 
 

@@ -1,9 +1,9 @@
 <div class="newsletter"> 
     <div class="content"> 
-        <span>Get Latest Blue Sky Summer Updates</span> 
+        <span>Get the Latest Fresh Produce Updates</span> 
         <h1>Subscribe to Our Newsletter</h1> 
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam explicabo sit est eos <br> 
-        earum reprehenderit inventore nam autem corrupti rerum!</p> 
+        <p>Stay informed about our seasonal fruits and vegetables. <br> 
+        Fresh deals and recipes delivered right to your inbox!</p> 
         <div class="input-field"> 
             <input type="email" placeholder="Enter your E-Mail"> 
             <button class="btn">Subscribe</button> 
@@ -15,25 +15,26 @@
                     <p class="counter">5000</p>
                     <i class="bx bx-plus"></i>
                 </div> 
-                <h3>Successfully Trained</h3> 
-                <p>Learners & Counting</p> 
+                <h3>Happy Customers</h3> 
+                <p>And Counting</p> 
             </div> 
             <div class="box"> 
                 <div class="box-counter">
                     <p class="counter">10000</p>
                     <i class="bx bx-plus"></i>
                 </div> 
-                <h3>Certification Seller</h3> 
-                <p>Online Sellers</p> 
+                <h3>Fruits Delivered</h3> 
+                <p>Fresh Deliveries</p> 
             </div> 
         </div> 
     </div> 
 </div>
+
 <footer> 
     <div class="content"> 
         <div class="box"> 
             <img src="image/logo.png" alt="Logo"> 
-            <p>We're always in search of talented and motivated people. Don't be shy, introduce yourself!</p> 
+            <p>We're always looking for talented and motivated people. Don't be shy, introduce yourself!</p> 
             <a href="contact.php" class="btn">Contact Now</a> 
         </div> 
         <div class="box"> 
@@ -48,21 +49,20 @@
             <a href=""> <i class="bx bx-chevron-right"></i>About Us</a> 
             <a href=""> <i class="bx bx-chevron-right"></i>Delivery Information</a> 
             <a href=""> <i class="bx bx-chevron-right"></i>Privacy Policy</a> 
-            <a href=""> <i class="bx bx-chevron-right"></i>terms & condition</a> 
+            <a href=""> <i class="bx bx-chevron-right"></i>Terms & Conditions</a> 
         </div> 
         <div class="box"> 
             <h3>Extras</h3> 
             <a href=""><i class="bx bx-chevron-right"></i>Brands</a> 
-            <a href=""><i class="bx bx-chevron-right"></i>Gift Certification</a> 
+            <a href=""><i class="bx bx-chevron-right"></i>Gift Certificates</a> 
             <a href=""><i class="bx bx-chevron-right"></i>Affiliate</a> 
             <a href=""><i class="bx bx-chevron-right"></i>Specials</a> 
         </div> 
-
         <div class="box"> 
             <h3>Contact Us</h3> 
-            <p><i class="bx bxs-phone"></i> (406) 555-0120</p> 
-            <p><i class="bx bxs-envelope"></i> selenaansari@gmail.com</p> 
-            <p><i class="bx bxs-location-plus"></i> North America, USA</p> 
+            <p><i class="bx bxs-phone"></i> +251 934 108 842</p> 
+            <p><i class="bx bxs-envelope"></i> fethiyaabdurehim7@gmail.com</p> 
+            <p><i class="bx bxs-location-plus"></i> Addis Ababa, Ethiopia</p> 
             <div class="icons"> 
                 <i class="bx bxl-facebook"></i> 
                 <i class="bx bxl-twitter"></i> 
@@ -72,7 +72,8 @@
         </div>
     </div> 
 </footer>
+
 <div class="bottom"> 
-    <p>Copyright © 2023 Code with Selena. All Rights Reserved</p> 
+    <p>Copyright © 2023 Gebeya Link Co. All Rights Reserved</p> 
     <a href="admin panel/login.php">Become a Seller</a> 
 </div>

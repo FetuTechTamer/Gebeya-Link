@@ -1,7 +1,7 @@
 <header class="header"> 
     <section class="flex"> 
         <a href="home.php" class="logo"> 
-            <img src="image/logo.webp" width="130" alt="Logo"> <!-- removed 'px' -->
+            <img src="image/logo.webp" width="130" alt="Logo">
         </a> 
 
         <nav class="navbar"> 

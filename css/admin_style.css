@@ -652,7 +652,7 @@ z-index: 1;
 .seller-profile .details .flex .box p { 
     font-size: 2rem; 
     color: #000; 
-    padding: 5rem 0; 
+    padding: .5rem 0; 
     margin-bottom: 1rem; 
 }
 /*---message-container---*/
