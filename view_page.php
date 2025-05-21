@@ -87,7 +87,14 @@ include 'components/add_cart.php';
         } 
         ?> 
     </section>
-
+    <div class="products"> 
+        <div class="heading"> 
+            <h1>Similar Agricultural Products</h1> 
+            <p>Explore our range of high-quality agricultural products, sourced sustainably to support local farmers and ensure freshness.</p> 
+            <img src="image/separator.webp" alt="Separator"> 
+        </div> 
+        <?php include 'components/shop.php'; ?> 
+    </div>
 
 
 

@@ -12,7 +12,7 @@
             <a href="contact.php">Contact Us</a> 
         </nav> 
 
-        <form action="" method="post" class="search-form"> 
+        <form action="search_product.php" method="post" class="search-form"> 
             <input type="text" name="search_product" placeholder="Search product..." required maxlength="100"> 
             <button type="submit" id="search_product_btn">
                 <i class="fa-solid fa-magnifying-glass"></i>

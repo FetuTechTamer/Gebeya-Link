@@ -150,7 +150,7 @@ input[type='submit']:hover{
 }
 /*-----custom scroll bar----*/
 ::-webkit-scrollbar{
-    width: 5px;
+    width: .5px;
 }
 ::-webkit-scrollbar-thumb{
     --webkit-border-radius:20px;
@@ -1354,3 +1354,182 @@ footer .bottom a {
     margin: .5rem;
 }
 /*------view product-----*/
+.view_page { 
+    background-image: url('../image/back2.png'); 
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    padding: 100px 6%; 
+}
+.view_page .box { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    line-height: 1.5; 
+    flex-wrap: wrap; 
+    box-shadow: var(--box-shadow);
+    border: 2px solid var(--white-alpha-25);
+    border-radius: .5rem;
+}
+.view_page .box .img-box, 
+.view_page .box .detail { 
+    flex: 1 1 40rem; 
+    padding: 2rem; 
+}
+.view_page .box .img-box { 
+    flex: 0 1 30rem;
+    width: 100%; 
+}
+.view_page .box .img-box img { 
+    width: 100%; 
+}
+.view_page .box .product-detail { 
+    color: lightgray; 
+    margin: 1rem 0;
+    line-height: 2;
+}
+.view_page .box .price{
+    font-size: 2rem;
+    color: var(--main-color);
+}
+.view_page .box .name{
+    color: var(--main-color);
+    text-transform: capitalize;
+    font-size: 2rem;
+}
+/*-----contact-----*/
+.services { 
+    background-image: url('../image/back2.png'); 
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    padding: 100px 6%; 
+    position: relative; 
+    min-height: 100vh; 
+} 
+.services .box-container .box { 
+    line-height: 1.5; 
+    text-align: center; 
+    padding: 2rem 0;
+} 
+.services .box-container .box div { 
+    margin-left: 2rem; 
+} 
+.services .box-container .box h1 { 
+    font-size: 25px; 
+    color: var(--main-color); 
+    margin: .5rem 0;  
+    text-transform: capitalize; 
+}
+.form-container lable{
+    font-size: 1.5rem;
+  text-transform: capitalize;
+  margin: 1rem 0;
+}
+.form-container sup{
+    color: red;
+}
+/*--- Checkout --- */
+.checkout{
+    background-image: url('../image/back2.png'); 
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    padding: 100px 6%; 
+}
+.checkout .row {
+    display: flex; 
+    flex-direction: column; 
+    flex-flow: column-reverse; 
+}
+.checkout .row form, 
+.checkout .summary { 
+    box-shadow: var(--box-shadow); 
+    border-radius: .5rem; 
+    width: 1000px; 
+    padding: 1rem; 
+    margin: 1rem auto; 
+}
+.checkout .row h3 { 
+    font-size: 2rem; 
+    padding-bottom: 1rem; 
+    text-transform: capitalize; 
+    text-align: center; 
+}
+.checkout .row form .box { 
+    flex: 1 1 20rem; 
+} 
+.checkout .row form .input { 
+    background-color: var(--white-alpha-25); 
+    border: 2px solid var(--white-alpha-40); 
+    backdrop-filter: var(--backdrop-filter); 
+    box-shadow: var(--box-shadow); 
+    width: 100%; 
+    border-radius: .5rem; 
+    margin: 1rem 0; 
+    font-size: 1.3rem; 
+    padding: 1rem; 
+} 
+.checkout .row form .flex { 
+    display: flex; 
+    column-gap: 1.5rem; 
+    flex-wrap: wrap; 
+}
+.checkout .row form p{
+    text-align: left;
+    padding-top: .5rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: gray;
+}
+.checkout .row form span{
+    color: red;
+}
+.checkout .row form .btn{
+    width: 100%;
+}
+.checkout .summary .box-container{
+    grid-template-columns: repeat(auto-fit,minmax(15rem,1fr));
+}
+.checkout .summary .name { 
+    font-size: 1.2rem; 
+    color: #000; 
+    text-transform: capitalize; 
+} 
+.checkout .summary .flex { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 1rem 8px; 
+    margin: .5rem; 
+} 
+.checkout .summary .flex img { 
+    box-shadow: var(--box-shadow); 
+    border-radius: 50%; 
+    width: 100px; 
+    height: 100px; 
+    padding: .5rem; 
+    margin-right: 2rem;
+}
+.checkout .summary .price{
+    font-size: 1.5rem;
+    color: red;
+}
+.checkout .summary .grand-total{ 
+    border-radius: .5rem;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    text-transform: capitalize;
+    padding: 2rem 0;
+}
+.checkout .summary .grand-total p{
+    color: red;
+    margin-left: .5rem;
+}
+
+1:08
