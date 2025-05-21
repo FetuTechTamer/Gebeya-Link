@@ -33,7 +33,6 @@
 <footer> 
     <div class="content"> 
         <div class="box"> 
-            <img src="image/logo.png" alt="Logo"> 
             <p>We're always looking for talented and motivated people. Don't be shy, introduce yourself!</p> 
             <a href="contact.php" class="btn">Contact Now</a> 
         </div> 
@@ -71,9 +70,9 @@
             </div> 
         </div>
     </div> 
-</footer>
-
-<div class="bottom"> 
+    
     <p>Copyright © 2023 Gebeya Link Co. All Rights Reserved</p> 
     <a href="admin panel/login.php">Become a Seller</a> 
-</div>
+
+</footer>
+

@@ -27,7 +27,7 @@ if (isset($_COOKIE['user_id'])) {
         <h1>About Gebeya Link</h1> 
         <p>Gebeya Link is dedicated to providing high-quality agricultural products. We focus on sustainable practices <br>and supporting local farmers to ensure fresh and nutritious offerings.<br>
         Our mission is to connect consumers with the best produce while promoting responsible farming.</p> 
-        <span><a href="home.php">Home</a> <i class="bx bx-right-arrow-alt"></i> About Us</span> 
+        <span><a href="home.php">Home</a> <i class="fa-solid fa-arrow-right"></i> About Us</span> 
     </div> 
 </div>
  <div class="developer"> 
@@ -63,7 +63,7 @@ if (isset($_COOKIE['user_id'])) {
 <div class="container"> 
     <div class="box-container"> 
         <div class="img-box"> 
-            <img src="image/about.png" alt="About Image"> 
+            <img src="image/about/about.png" alt="About Image"> 
         </div> 
         <div class="box"> 
             <div class="heading"> 
@@ -88,35 +88,40 @@ if (isset($_COOKIE['user_id'])) {
         <img src="image/about/feti.jpg" class="img" alt="Fethiya Abdurehim"> 
         <div class="content"> 
             <h2>Fethiya Abdurehim</h2> 
-            <p>Project Manager</p> 
+            <p style="padding-bottom:50px;">Project Manager</p> 
+            <a href="https://github.com/FetuTechTamer" class="btn">Github</a>
         </div> 
     </div> 
     <div class="box"> 
         <img src="image/about/yordi.jpg" class="img" alt="Yordanos Solomon"> 
         <div class="content"> 
             <h2>Yordanos Solomon</h2> 
-            <p>DevOps Engineer</p> 
+            <p style="padding-bottom:50px;">DevOps Engineer </p> 
+            <a href="https://github.com/yordanossole" class="btn" >Github</a>
         </div> 
     </div> 
     <div class="box"> 
         <img src="image/about/nafi.jpg" class="img" alt="Nafargi Damena"> 
         <div class="content"> 
             <h2>Nafargi Damena</h2> 
-            <p>UI/UX Designer</p> 
+            <p style="padding-bottom:50px;">UI/UX Designer</p> 
+            <a href="https://github.com/nafargi" class="btn">Github</a>
         </div> 
     </div> 
     <div class="box"> 
         <img src="image/about/tile.jpg" class="img" alt="Tilahun Beza"> 
         <div class="content"> 
             <h2>Tilahun Beza</h2> 
-            <p>Quality Assurance</p> 
+            <p style="padding-bottom:50px;">Quality Assurance</p> 
+            <a href="https://github.com/FetuTechTamer" class="btn">Github</a>
         </div> 
     </div> 
     <div class="box"> 
         <img src="image/about/lema.jpg" class="img" alt="Lema Tefera"> 
         <div class="content"> 
             <h2>Lema Tefera</h2> 
-            <p>Content Strategist</p> 
+            <p style="padding-bottom:50px;">Content Strategist</p> 
+            <a href="https://github.com/Lema-TR" class="btn">Github</a>
         </div> 
     </div> 
 </div>
@@ -127,16 +132,16 @@ if (isset($_COOKIE['user_id'])) {
             <h1>Our Standards</h1> 
             <img src="image/separator.webp" alt="Separator Image"> 
         </div> 
-        <p>At Gebeya Link, we prioritize quality and sustainability in all our agricultural products.</p> 
-        <i class="bx bxs-heart"></i> 
+        <p>we prioritize quality and sustainability in all our agricultural products.</p> 
+       <i class="fa-regular fa-heart"></i>
         <p>We support local farmers and ensure ethical sourcing practices.</p> 
-        <i class="bx bxs-heart"></i> 
+       <i class="fa-regular fa-heart"></i>
         <p>Our products are fresh, nutritious, and environmentally friendly.</p> 
-        <i class="bx bxs-heart"></i> 
+       <i class="fa-regular fa-heart"></i>
         <p>We are committed to providing exceptional customer service.</p> 
-        <i class="bx bxs-heart"></i> 
-        <p>By eliminating the middleman, we connect consumers directly with farmers.</p> 
-        <i class="bx bxs-heart"></i> 
+       <i class="fa-regular fa-heart"></i>
+        <p>we eliminate the middleman, we connect consumers directly with farmers.</p> 
+       <i class="fa-regular fa-heart"></i>
     </div> 
 </div> 
 
@@ -150,45 +155,30 @@ if (isset($_COOKIE['user_id'])) {
                 <img src="image/separator.webp" alt="Separator Image"> 
             </div> 
             <div class="detail"> 
-                <div class="img-box"> 
-                    <img src="image/mission.webp" alt="Mission Image"> 
-                </div> 
                 <div> 
                     <h2>Connecting Communities</h2> 
                     <p>We aim to bridge the gap between local farmers and consumers, ensuring access to fresh produce.</p> 
                 </div> 
             </div> 
             <div class="detail"> 
-                <div class="img-box"> 
-                    <img src="image/mission.webp" alt="Mission Image"> 
-                </div> 
                 <div> 
                     <h2>Promoting Sustainability</h2> 
                     <p>Our mission includes advocating for sustainable farming practices that benefit the environment.</p> 
                 </div> 
             </div> 
             <div class="detail"> 
-                <div class="img-box"> 
-                    <img src="image/mission.webp" alt="Mission Image"> 
-                </div> 
                 <div> 
                     <h2>Enhancing Nutrition</h2> 
                     <p>We are dedicated to providing nutritious food options that contribute to healthier lifestyles.</p> 
                 </div> 
             </div> 
             <div class="detail"> 
-                <div class="img-box"> 
-                    <img src="image/mission.webp" alt="Mission Image"> 
-                </div> 
                 <div> 
                     <h2>Supporting Local Economies</h2> 
                     <p>We strive to uplift local farmers and strengthen community ties through our practices.</p> 
                 </div> 
             </div> 
             <div class="detail"> 
-                <div class="img-box"> 
-                    <img src="image/mission.webp" alt="Mission Image"> 
-                </div> 
                 <div> 
                     <h2>Delivering Quality</h2> 
                     <p>Our commitment is to provide only the highest quality agricultural products to our customers.</p> 
@@ -196,7 +186,7 @@ if (isset($_COOKIE['user_id'])) {
             </div> 
         </div> 
         <div class="box">
-            <img src="image/form.png" alt="Form Image" class="img">
+            <img src="image/about/mission.jpg" alt="Form Image" class="img">
         </div>
     </div> 
 </div>

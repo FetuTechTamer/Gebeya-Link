@@ -16,14 +16,35 @@
             <input type="text" name="search_product" placeholder="Search product..." required maxlength="100"> 
             <button type="submit" id="search_product_btn">
                 <i class="fa-solid fa-magnifying-glass"></i>
-            </button> <!-- Correct use of icon inside button -->
+            </button>
         </form> 
 
         <div class="icons">
             <div id="menu-btn"><i class="fa-solid fa-bars"></i></div>
             <div id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <a href="wishlist.php"><i class="fa-regular fa-heart"></i><sup>0</sup></a>
-            <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i><sup>0</sup></a>
+
+            <?php 
+            // Count wishlist items
+            $count_wishlist_item = $conn->prepare("SELECT * FROM wishlist WHERE user_id = ?"); 
+            $count_wishlist_item->bind_param("s", $user_id);
+            $count_wishlist_item->execute(); 
+            $count_wishlist_item->store_result(); 
+            $total_wishlist_items = $count_wishlist_item->num_rows; 
+            $count_wishlist_item->free_result(); // Free the result set
+            ?> 
+            <a href="wishlist.php"><i class="fa-regular fa-heart"></i><sup><?= $total_wishlist_items; ?></sup></a> 
+
+            <?php 
+            // Count cart items
+            $count_cart_item = $conn->prepare("SELECT * FROM cart WHERE user_id = ?"); 
+            $count_cart_item->bind_param("s", $user_id); 
+            $count_cart_item->execute(); 
+            $count_cart_item->store_result(); 
+            $total_cart_items = $count_cart_item->num_rows; 
+            $count_cart_item->free_result(); // Free the result set
+            ?> 
+            <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?= $total_cart_items; ?></sup></a>
+           
             <div id="user-btn"><i class="fa-solid fa-user"></i></div>
         </div>
 
@@ -36,6 +57,7 @@
 
             if ($result && $result->num_rows > 0) {
                 $fetch_profile = $result->fetch_assoc();
+                $result->free(); // Free the result set
         ?> 
                 <img src="uploaded_files/<?= htmlspecialchars($fetch_profile['image']); ?>" alt="Profile Image"> 
                 <h3 style="margin-bottom: 1rem;"><?= htmlspecialchars($fetch_profile['name']); ?></h3> 

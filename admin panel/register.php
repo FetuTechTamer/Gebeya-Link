@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session
+session_start();
 include '../components/connect.php';
 
 // Initialize message variables
@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    // Store messages in session
+    // Store messages in session for display
     $_SESSION['success_msg'] = $success_msg;
     $_SESSION['warning_msg'] = $warning_msg;
 
@@ -66,14 +66,14 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Registration Page</title>
-     <link rel="icon" href="../image/favicon.ico" type="image/png">
+    <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
 <div class="form-container">
-    <form action="" method="POST" enctype="multipart/form-data" class="register" style=" transform: none;">
+    <form action="" method="POST" enctype="multipart/form-data" class="register" style="transform: none;">
         <h3>Register Now</h3>
         <div class="flex">
             <div class="col">
@@ -108,24 +108,7 @@ if (isset($_POST['submit'])) {
 
 <!----- SweetAlert CDN link ----->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-<script src="../js/script.js"></script>
-
-<?php
-// Display alerts if there are any messages
-if (isset($_SESSION['success_msg'])) {
-    foreach ($_SESSION['success_msg'] as $message) {
-        echo "<script>swal('Success', '$message', 'success');</script>";
-    }
-    unset($_SESSION['success_msg']); // Clear the message after displaying
-}
-
-if (isset($_SESSION['warning_msg'])) {
-    foreach ($_SESSION['warning_msg'] as $message) {
-        echo "<script>swal('Warning', '$message', 'warning');</script>";
-    }
-    unset($_SESSION['warning_msg']); // Clear the message after displaying
-}
-?>
+ <?php include '../components/alert.php'; ?> 
 
 </body>
 </html>

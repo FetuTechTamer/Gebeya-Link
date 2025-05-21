@@ -1,8 +1,13 @@
 <?php
-session_start(); 
-include '../components/connect.php';
+include 'components/connect.php';
+session_start(); // Start the session
 
-// Initialize message variables
+if (isset($_COOKIE['user_id'])) {
+    $user_id = $_COOKIE['user_id'];
+} else {
+    $user_id = '';
+} 
+
 $success_msg = [];
 $warning_msg = [];
 
@@ -11,22 +16,23 @@ if (isset($_POST['submit'])) {
     $password = sha1($_POST['password']); 
     $password = filter_var($password, FILTER_SANITIZE_STRING);
   
-    $select_seller = $conn->prepare("SELECT * FROM `seller` WHERE email = ? AND password = ?");
-    $select_seller->bind_param("ss", $email, $password);
-    $select_seller->execute();
+    $select_user = $conn->prepare("SELECT * FROM `user` WHERE email = ? AND password = ?");
+    $select_user->bind_param("ss", $email, $password);
+    $select_user->execute();
 
-    $result = $select_seller->get_result();
+    $result = $select_user->get_result();
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        setcookie('seller_id', $row['id'], time() + (60 * 60 * 24 * 30), '/'); 
-        header('Location: dashboard.php');
+        setcookie('user_id', $row['id'], time() + (60 * 60 * 24 * 30), '/'); 
+        $success_msg[] = 'Login successful! Redirecting...'; // Add success message
+        header('Location: home.php');
         exit(); 
     } else { 
         $warning_msg[] = 'Incorrect email or password';
     }
 }
 
-// Store messages in session for display
+// Pass messages to alert component
 if (!empty($warning_msg)) {
     $_SESSION['warning_msg'] = $warning_msg;
 }
@@ -37,13 +43,22 @@ if (!empty($warning_msg)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Login Page</title>
-    <link rel="icon" href="../image/favicon.ico" type="image/png">
-    <link rel="stylesheet" href="../css/admin_style.css">
+    <title>User Login Page</title>
+    <link rel="icon" href="image/favicon.ico" type="image/png">
+    <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
+<?php include 'components/user_header.php'; ?>
+ <div class="banner"> 
+        <div class="detail" style="padding:400px;"> 
+            <h1>login</h1> 
+            <p>Gebeya Link is dedicated to providing high-quality agricultural products. We focus on sustainable practices <br>and supporting local farmers to ensure fresh and nutritious offerings.<br>
+            Our mission is to connect consumers with the best produce while promoting responsible farming.</p> 
+            <span><a href="home.php">Home</a> <i class="fa-solid fa-arrow-right"></i> Login Now</span> 
+        </div> 
+    </div>
 <div class="form-container">
     <form action="" method="POST" class="register" style="transform: none;">
         <h3>Login Now</h3>
@@ -62,10 +77,11 @@ if (!empty($warning_msg)) {
     </form>
 </div>
 
+<?php include 'components/footer.php'; ?>
+
 <!----- SweetAlert CDN link ----->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-<script src="../js/script.js"></script>
- <?php include '../components/alert.php'; ?>
-
+<script src="js/user_script.js"></script>
+ <?php include 'components/alert.php'; ?>
 </body>
 </html>
