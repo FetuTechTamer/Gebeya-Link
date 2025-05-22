@@ -73,7 +73,7 @@ $total_message = $result_message->num_rows; // Count the number of rows
                     <i class="fas fa-folder-chat"></i> 
                     <h3><?= $total_message; ?></h3> 
                 </div> 
-                <a href="order.php" class="btn">View message</a> 
+                <a href="contact.php" class="btn">View message</a> 
             </div> 
         </div> 
     </div> 

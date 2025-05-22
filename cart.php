@@ -9,6 +9,9 @@ if (isset($_COOKIE['user_id'])) {
     exit;
 }
 
+$success_msg = [];
+$warning_msg = [];
+
 // Update quantity in cart 
 if (isset($_POST['update_cart'])) { 
     $cart_id = $_POST['cart_id']; 
@@ -18,9 +21,10 @@ if (isset($_POST['update_cart'])) {
     $qty = filter_var($qty, FILTER_SANITIZE_STRING); 
 
     $update_qty = $conn->prepare("UPDATE cart SET quantity = ? WHERE id = ?"); 
-    $update_qty->execute([$qty, $cart_id]); 
-
-    $success_msg[] = 'Cart quantity updated successfully';
+    $update_qty->bind_param("is", $qty, $cart_id); // Bind parameters
+    if ($update_qty->execute()) {
+        $success_msg[] = 'Cart quantity updated successfully';
+    }
 }
 
 // Delete products from cart 
@@ -29,11 +33,13 @@ if (isset($_POST['delete_item'])) {
     $cart_id = filter_var($cart_id, FILTER_SANITIZE_STRING); 
 
     $verify_delete_item = $conn->prepare("SELECT * FROM cart WHERE id = ?"); 
-    $verify_delete_item->execute([$cart_id]); 
+    $verify_delete_item->bind_param("s", $cart_id);
+    $verify_delete_item->execute(); 
 
     if ($verify_delete_item->get_result()->num_rows > 0) { 
         $delete_cart_id = $conn->prepare("DELETE FROM cart WHERE id = ?"); 
-        $delete_cart_id->execute([$cart_id]); 
+        $delete_cart_id->bind_param("s", $cart_id);
+        $delete_cart_id->execute(); 
         $success_msg[] = 'Cart item deleted successfully'; 
     } else { 
         $warning_msg[] = 'Cart item already deleted'; 
@@ -43,19 +49,18 @@ if (isset($_POST['delete_item'])) {
 // Empty cart 
 if (isset($_POST['empty_cart'])) { 
     $verify_empty_item = $conn->prepare("SELECT * FROM cart WHERE user_id = ?"); 
-    $verify_empty_item->execute([$user_id]); 
+    $verify_empty_item->bind_param("s", $user_id);
+    $verify_empty_item->execute(); 
 
     if ($verify_empty_item->get_result()->num_rows > 0) { 
         $delete_cart_id = $conn->prepare("DELETE FROM cart WHERE user_id = ?"); 
-        $delete_cart_id->execute([$user_id]); 
+        $delete_cart_id->bind_param("s", $user_id);
+        $delete_cart_id->execute(); 
         $success_msg[] = 'Cart emptied successfully'; 
     } else { 
         $warning_msg[] = 'Your cart is already empty'; 
     } 
 }
-
-$success_msg = [];
-$warning_msg = [];
 ?>
 
 <!DOCTYPE html>
@@ -74,8 +79,7 @@ $warning_msg = [];
 <div class="banner"> 
     <div class="detail" style="padding:400px;"> 
         <h1>Cart</h1> 
-        <p>Gebeya Link is dedicated to providing high-quality agricultural products. We focus on sustainable practices <br>and supporting local farmers to ensure fresh and nutritious offerings.<br>
-        Our mission is to connect consumers with the best produce while promoting responsible farming.</p> 
+        <p>Gebeya Link is dedicated to providing high-quality agricultural products...</p> 
         <span><a href="home.php">Home</a> <i class="fa-solid fa-arrow-right"></i> Cart</span> 
     </div> 
 </div>
@@ -162,6 +166,8 @@ $warning_msg = [];
 <!----- SweetAlert CDN link ----->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script src="js/user_script.js"></script>
- <?php include 'components/alert.php'; ?>
+
+<?php include 'components/alert.php'; ?>
+
 </body>
 </html>

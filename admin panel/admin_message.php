@@ -1,40 +1,47 @@
 <?php
+session_start(); // Start session at the very beginning
 include '../components/connect.php';
+
+// Retrieve messages from session
+$success_msg = $_SESSION['success_msg'] ?? [];
+$warning_msg = $_SESSION['warning_msg'] ?? [];
+unset($_SESSION['success_msg'], $_SESSION['warning_msg']);
 
 if (isset($_COOKIE['seller_id'])) {
     $seller_id = $_COOKIE['seller_id'];
 
-    // Fetch profile data
     $fetch_profile_query = $conn->prepare("SELECT * FROM `seller` WHERE id = ?");
     $fetch_profile_query->bind_param("s", $seller_id);
     $fetch_profile_query->execute();
-    $fetch_profile = $fetch_profile_query->get_result()->fetch_assoc(); // Fetch the profile data
+    $fetch_profile = $fetch_profile_query->get_result()->fetch_assoc();
 } else {
-    $seller_id = '';
     header('location:login.php');
-    exit(); // Make sure to exit after redirecting
+    exit();
 }
 
-// Delete message from database 
 if (isset($_POST['delete_msg'])) { 
-    $delete_id = $_POST['delete_id']; 
-    $delete_id = filter_var($delete_id, FILTER_SANITIZE_STRING); 
+    $delete_id = filter_var($_POST['delete_id'], FILTER_SANITIZE_STRING); 
 
-    // Verify if the message exists
-    $verify_delete = $conn->prepare("SELECT * FROM message WHERE id = ?"); 
-    $verify_delete->bind_param("s", $delete_id); // Bind the parameter
+    // Verify message exists and belongs to seller
+    $verify_delete = $conn->prepare("SELECT * FROM message WHERE id = ? AND seller_id = ?"); 
+    $verify_delete->bind_param("ss", $delete_id, $seller_id);
     $verify_delete->execute(); 
-    $result = $verify_delete->get_result(); 
+    $result = $verify_delete->get_result();
 
     if ($result->num_rows > 0) { 
-        // Delete the message
         $delete_msg = $conn->prepare("DELETE FROM message WHERE id = ?"); 
-        $delete_msg->bind_param("s", $delete_id); // Bind the parameter
-        $delete_msg->execute(); 
-        $success_msg[] = 'Message deleted successfully'; 
+        $delete_msg->bind_param("s", $delete_id);
+        if ($delete_msg->execute()) {
+            $_SESSION['success_msg'][] = 'Message deleted successfully';
+        } else {
+            $_SESSION['warning_msg'][] = 'Failed to delete message';
+        }
     } else { 
-        $warning_msg[] = "Message already deleted"; 
+        $_SESSION['warning_msg'][] = "Message not found or unauthorized";
     }
+    
+    header("Location: ".$_SERVER['PHP_SELF']); // Redirect to prevent resubmission
+    exit();
 }
 ?>
 <!DOCTYPE html>

@@ -77,7 +77,7 @@ if (isset($_COOKIE['seller_id'])) {
                     ?>
                     <h3><?= $number_of_active_products ?></h3>
                     <p>Total active products</p>
-                    <a href="view_products.php" class="btn">View active products</a>
+                    <a href="view_active_products.php" class="btn">View active products</a>
                 </div>
 
                 <div class="box">
@@ -91,7 +91,7 @@ if (isset($_COOKIE['seller_id'])) {
                     ?>
                     <h3><?= $number_of_deactive_products ?></h3>
                     <p>Total deactive products</p>
-                    <a href="view_products.php" class="btn">View deactive products</a>
+                    <a href="view_deactive_products.php" class="btn">View deactive products</a>
                 </div>
 
                 <div class="box">

@@ -72,7 +72,7 @@ if (isset($_POST['place_order'])) {
                     $order_id = uniqid();
 
                     $insert_order = $conn->prepare("INSERT INTO orders (id, user_id, seller_id, name, number, email, address, address_type, method, product_id, price, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $insert_order->bind_param("siisssssssdi", $order_id, $user_id, $seller_id, $name, $number, $email, $address, $address_type, $method, $product_id, $price, $quantity);
+                    $insert_order->bind_param("ssssssssssii", $order_id, $user_id, $seller_id, $name, $number, $email, $address, $address_type, $method, $product_id, $price, $quantity);
                     $insert_order->execute();
                     $insert_order->close();
                 }

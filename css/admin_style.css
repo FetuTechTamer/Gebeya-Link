@@ -24,7 +24,7 @@ body{
     background-position: center;
 }
 html{
-scroll-behavior: smooth;
+scroll-behavior: smooth;  
 }
 .btn{
     background-color: var(--white-alpha-25);
@@ -273,7 +273,7 @@ header{
 header .right{
     display: flex;
 }
-#user-btn,
+,
  .toggle-btn{
     font-size: 2rem;
     padding: .5rem;

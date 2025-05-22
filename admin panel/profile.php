@@ -58,12 +58,12 @@ $total_orders = $result_orders->num_rows; // Get the total number of orders
                     <div class="box"> 
                         <span><?= $total_products; ?></span> 
                         <p>Total Products</p> 
-                        <a href="view_product.php" class="btn">View Products</a> 
+                        <a href="view_products.php" class="btn">View Products</a> 
                     </div> 
                     <div class="box"> 
                         <span><?= $total_orders; ?></span> 
                         <p>Total Orders placed</p> 
-                        <a href="admin_orders.php" class="btn">View Orders</a> 
+                        <a href="admin_order.php" class="btn">View Orders</a> 
                     </div> 
                 </div> 
             </div>

@@ -6,7 +6,7 @@ include '../components/connect.php';
 $success_msg = [];
 $warning_msg = [];
 
-// Check if form is submitted
+// Check if the form is submitted
 if (isset($_POST['submit'])) {
     $id = unique_id();
     $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
@@ -72,6 +72,8 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
 
+
+
 <div class="form-container">
     <form action="" method="POST" enctype="multipart/form-data" class="register" style="transform: none;">
         <h3>Register Now</h3>
@@ -106,9 +108,21 @@ if (isset($_POST['submit'])) {
     </form>
 </div>
 
+
+
 <!----- SweetAlert CDN link ----->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
- <?php include '../components/alert.php'; ?> 
+<script>
+    <?php if (!empty($_SESSION['success_msg'])): ?>
+        swal("Success!", "<?php echo $_SESSION['success_msg'][0]; ?>", "success");
+        <?php unset($_SESSION['success_msg']); ?>
+    <?php endif; ?>
+
+    <?php if (!empty($_SESSION['warning_msg'])): ?>
+        swal("Warning!", "<?php echo $_SESSION['warning_msg'][0]; ?>", "warning");
+        <?php unset($_SESSION['warning_msg']); ?>
+    <?php endif; ?>
+</script>
 
 </body>
 </html>

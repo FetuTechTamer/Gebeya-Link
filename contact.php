@@ -59,6 +59,13 @@ if($verify_message->num_rows > 0) {
     <link rel="icon" href="image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .img-small {
+    width: 80px;  /* Example size */
+    height: auto;  /* Maintain aspect ratio */
+    
+} 
+    </style>
 </head>
 <body>
 
@@ -79,22 +86,22 @@ if($verify_message->num_rows > 0) {
         </div> 
         <div class="box-container"> 
             <div class="box"> 
-                <img src="" alt="Free Shipping"> 
+                <img src="image/free Shipping.png" alt="Free Shipping" class="img-small"> 
                 <div> 
                     <h1>Free Shipping Fast</h1> 
                     <p>Enjoy quick and reliable shipping on all your agricultural product orders.</p> 
                 </div> 
             </div> 
-            <div class="box"> 
-                <img src="" alt="Money Back Guarantee"> 
+            <div class="box" style="min-height: 42vh; "> 
+                <img src="image/Money Back Guarantee.png" alt="Money Back Guarantee" class="img-small"> 
                 <div> 
-                    <h1>Money Back Guarantee</h1> 
+                    <h1 >Money Back Guarantee</h1> 
                     <p>We ensure the quality of our agricultural products with a money-back guarantee for your peace of mind.</p> 
                 </div> 
             </div> 
 
             <div class="box"> 
-                <img src="" alt="Online Support"> 
+                <img src="image/Online Support.png" alt="Online Support" class="img-small"> 
                 <div> 
                     <h1>Online Support 24/7</h1> 
                     <p>Our team is available around the clock to assist you with any inquiries about our agricultural products.</p> 

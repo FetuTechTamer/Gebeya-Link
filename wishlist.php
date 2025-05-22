@@ -22,6 +22,7 @@ if (isset($_POST['delete_item'])) {
     $verify_delete = $conn->prepare("SELECT * FROM wishlist WHERE id = ?"); 
     $verify_delete->bind_param("s", $wishlist_id);
     $verify_delete->execute(); 
+    $verify_delete->store_result(); // Ensure we store the result
 
     if ($verify_delete->num_rows > 0) { 
         $delete_wishlist_id = $conn->prepare("DELETE FROM wishlist WHERE id = ?"); 
@@ -31,6 +32,7 @@ if (isset($_POST['delete_item'])) {
     } else { 
         $warning_msg[] = 'Item already removed'; 
     }
+    $verify_delete->close(); // Close the statement
 }
 
 ?>
@@ -68,7 +70,7 @@ if (isset($_POST['delete_item'])) {
         $select_wishlist = $conn->prepare("SELECT * FROM wishlist WHERE user_id = ?"); 
         $select_wishlist->bind_param("s", $user_id);
         $select_wishlist->execute(); 
-        $select_wishlist->store_result(); 
+        $select_wishlist->store_result(); // Ensure we store the result
 
         if ($select_wishlist->num_rows > 0) { 
             $select_wishlist->bind_result($wishlist_id, $user_id, $product_id, $price); // Adjust based on your table structure

@@ -15,10 +15,54 @@ if (isset($_COOKIE['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gebeya Link- About us page</title>
+    <title>Gebeya Link- About us</title>
     <link rel="icon" href="image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    .content {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .content h2 {
+        margin-bottom: 10px;
+    }
+
+    .content p {
+        padding-bottom: 10px;
+    }
+
+    .content a {
+        margin-top: 15px;
+        display: inline-block;
+    }
+      .standards {
+        text-align: center;
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+
+    .detail .box {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .heading h1 {
+        margin-bottom: 10px;
+    }
+
+    .detail .box p {
+        margin: 10px 0;
+        line-height: 1.5;
+    }
+
+    .fa-heart {
+        color: #ff5252; 
+        margin: 0 5px; 
+    }
+</style>
+
 </head>
 <body>
     <?php include 'components/user_header.php'; ?>
@@ -38,7 +82,7 @@ if (isset($_COOKIE['user_id'])) {
                 <h1>Web Development Manager</h1> 
                 <img src="image/separator.webp" alt="Separator Image"> 
             </div> 
-            <p>Fethiya is a skilled full stack web developer with a passion for creating responsive and user-friendly websites. With a keen eye for design and detail, she excels in HTML, CSS, and JavaScript. Her goal is to deliver exceptional web experiences that engage users.</p> 
+            <p>Hey I am Fethiya skilled full stack web developer with a passion for creating responsive and user-friendly websites. With a keen eye for design and detail, I excels in HTML, CSS, and JavaScript. My goal is to deliver exceptional web experiences that engage users.</p> 
             <div class="flex-btn"> 
                 <a href="https://github.com/FetuTechTamer" class="btn">Explore My Work</a> 
                 <a href="https://fetutechtamer.vercel.app/" class="btn">Visit My Portfolio</a> 
@@ -83,45 +127,51 @@ if (isset($_COOKIE['user_id'])) {
         <h1>Quality & Passion with Our Services</h1> 
         <img src="image/separator.webp" alt="Separator Image"> 
     </div> 
-  <div class="box-container"> 
-    <div class="box"> 
-        <img src="image/about/feti.jpg" class="img" alt="Fethiya Abdurehim"> 
-        <div class="content"> 
-            <h2>Fethiya Abdurehim</h2> 
-            <p style="padding-bottom:50px;">Project Manager</p> 
-            <a href="https://github.com/FetuTechTamer" class="btn">Github</a>
+   <div class="box-container"> 
+        <div class="box"> 
+            <img src="image/about/feti.jpg" class="img" alt="Fethiya Abdurehim"> 
+            <div class="content"> 
+                <h2>Fethiya Abdurehim</h2> 
+                <p >Project Manager</p>
+                <p>Hey, I'm Fethiya! I oversee project timelines and ensure everything runs smoothly. My passion is turning ideas into reality.</p>
+                <a href="https://github.com/FetuTechTamer" class="btn">Github</a>
+            </div> 
         </div> 
-    </div> 
-    <div class="box"> 
-        <img src="image/about/yordi.jpg" class="img" alt="Yordanos Solomon"> 
-        <div class="content"> 
-            <h2>Yordanos Solomon</h2> 
-            <p style="padding-bottom:50px;">DevOps Engineer </p> 
-            <a href="https://github.com/yordanossole" class="btn" >Github</a>
+        <div class="box"> 
+            <img src="image/about/yordi.jpg" class="img" alt="Yordanos Solomon"> 
+            <div class="content"> 
+                <h2>Yordanos Solomon</h2> 
+                <p >DevOps Engineer</p> 
+                <p>Hi, I’m Yordanos! I streamline our deployment processes and ensure our systems are robust and reliable.</p>
+                <a href="https://github.com/yordanossole" class="btn">Github</a>
+            </div> 
         </div> 
-    </div> 
-    <div class="box"> 
-        <img src="image/about/nafi.jpg" class="img" alt="Nafargi Damena"> 
-        <div class="content"> 
-            <h2>Nafargi Damena</h2> 
-            <p style="padding-bottom:50px;">UI/UX Designer</p> 
-            <a href="https://github.com/nafargi" class="btn">Github</a>
+        <div class="box"> 
+            <img src="image/about/nafi.jpg" class="img" alt="Nafargi Damena"> 
+            <div class="content"> 
+                <h2>Nafargi Damena</h2> 
+                <p >UI/UX Designer</p> 
+                <p>Hello! I’m Nafargi, and I design user-friendly interfaces that enhance the user experience.</p>
+                <a href="https://github.com/nafargi" class="btn">Github</a>
+            </div> 
         </div> 
-    </div> 
-    <div class="box"> 
-        <img src="image/about/tile.jpg" class="img" alt="Tilahun Beza"> 
-        <div class="content"> 
-            <h2>Tilahun Beza</h2> 
-            <p style="padding-bottom:50px;">Quality Assurance</p> 
-            <a href="https://github.com/FetuTechTamer" class="btn">Github</a>
+        <div class="box"> 
+            <img src="image/about/tile.jpg" class="img" alt="Tilahun Beza"> 
+            <div class="content"> 
+                <h2>Tilahun Beza</h2> 
+                <p >Quality Assurance</p> 
+                <p>Hi, I’m Tilahun! I ensure that our products meet the highest quality standards before they reach our customers.</p>
+                <a href="https://github.com/TB-777/TB-777" class="btn">Github</a>
+            </div> 
         </div> 
-    </div> 
-    <div class="box"> 
-        <img src="image/about/lema.jpg" class="img" alt="Lema Tefera"> 
-        <div class="content"> 
-            <h2>Lema Tefera</h2> 
-            <p style="padding-bottom:50px;">Content Strategist</p> 
-            <a href="https://github.com/Lema-TR" class="btn">Github</a>
+        <div class="box"> 
+            <img src="image/about/lema.jpg" class="img" alt="Lema Tefera"> 
+            <div class="content"> 
+                <h2>Lema Tefera</h2> 
+                <p >Content Strategist</p> 
+                <p>Hey there! I’m Lema, focusing on creating engaging content that resonates with our audience.</p>
+                <a href="https://github.com/Lema-TR" class="btn">Github</a>
+            </div> 
         </div> 
     </div> 
 </div>

@@ -19,6 +19,16 @@ if (isset($_COOKIE['user_id'])) {
     <link rel="icon" href="image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+ <style>
+    .taste .box-container .box h1 {
+        margin-top: 230px; 
+        font-size: 24px;
+    }
+    .img{
+        width:80px;
+    }
+    
+</style>
 </head>
 <body>
     <?php include 'components/user_header.php'; ?>
@@ -53,11 +63,10 @@ if (isset($_COOKIE['user_id'])) {
         <div class="service">
             <div class="box-container">
                 <!-- Service Item Box: Delivery -->
-                <div class="box">
+                <div class="box" style="height:150px;">
                     <div class="icon">
                         <div class="icon-box">
-                            <img src="image/delivery1.png" class="img1">
-                            <img src="image/delivery2.png" class="img2">
+                            <img src="image/delivery.png" class="img" >
                         </div>
                     </div>
                     <div class="detail">
@@ -70,8 +79,7 @@ if (isset($_COOKIE['user_id'])) {
                 <div class="box">
                     <div class="icon">
                         <div class="icon-box">
-                            <img src="image/payment.png" class="img1">
-                            <img src="image/payment.png" class="img2">
+                            <img src="image/payment.png" class="img">
                         </div>
                     </div>
                     <div class="detail">
@@ -84,8 +92,7 @@ if (isset($_COOKIE['user_id'])) {
                 <div class="box">
                     <div class="icon">
                         <div class="icon-box">
-                            <img src="image/support.png" class="img1">
-                            <img src="image/support.png" class="img2">
+                            <img src="image/support.png" class="img">
                         </div>
                     </div>
                     <div class="detail">
@@ -98,8 +105,7 @@ if (isset($_COOKIE['user_id'])) {
                 <div class="box">
                     <div class="icon">
                         <div class="icon-box">
-                            <img src="image/order-management.png" class="img1">
-                            <img src="image/order-management.png" class="img2">
+                            <img src="image/order-management.png" class="img">
                         </div>
                     </div>
                     <div class="detail">
@@ -112,8 +118,7 @@ if (isset($_COOKIE['user_id'])) {
                 <div class="box">
                     <div class="icon">
                         <div class="icon-box">
-                            <img src="image/analytics.png" class="img1">
-                            <img src="image/analytics.png" class="img2">
+                            <img src="image/analytics.jpeg" class="img">
                         </div>
                     </div>
                     <div class="detail">
@@ -126,8 +131,7 @@ if (isset($_COOKIE['user_id'])) {
                 <div class="box">
                     <div class="icon">
                         <div class="icon-box">
-                            <img src="image/security.png" class="img1">
-                            <img src="image/security.png" class="img2">
+                            <img src="image/security.png" class="img">
                         </div>
                     </div>
                     <div class="detail">
@@ -166,7 +170,7 @@ if (isset($_COOKIE['user_id'])) {
                 </div>
                 <div class="box">
                     <img src="image/catagory/cereals.png" alt="Cereals">
-                    <a href="menu.php" class="btn">Cereals</a>
+                    <a href="menu.php" class="btn">Vegetables</a>
                 </div>
             </div>
         </div>
@@ -183,7 +187,7 @@ if (isset($_COOKIE['user_id'])) {
                     <img src="image/catagory/cucumber.png" alt="Fresh Cucumber"> 
                     <div class="detail"> 
                         <h2>Crisp and Refreshing</h2> 
-                        <h1>Cucumber</h1> 
+                     <h1 >Cucumber</h1>
                     </div> 
                 </div> 
                 <div class="box"> 
@@ -341,7 +345,7 @@ if (isset($_COOKIE['user_id'])) {
                         </div> 
                     </div> 
                 </div> 
-                <img src="image/catagory/sub-banner.jpg" class="divider" alt="">
+               <img src="image/catagory/slider-2.jpg" class="divider" alt="" style="height: 900px; object-fit: cover; border-radius: 25px;">
             </div> 
         </div>
          <!-- Usage section end --> 
