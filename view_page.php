@@ -68,7 +68,9 @@ include 'components/add_cart.php';
         <?php } ?> 
         <p class="price">$<?= htmlspecialchars($fetch_products['price']); ?>/-</p> 
         <div class="name"><?= htmlspecialchars($fetch_products['name']); ?></div> 
-        <p class="product-detail"><?= htmlspecialchars($fetch_products['product_detail']); ?></p> 
+        <p class="content"><?= htmlspecialchars($fetch_products['product_detail']); ?></p> 
+
+
         <input type="hidden" name="product_id" value="<?= $fetch_products['id']; ?>"> 
         <div class="button"> 
             <button type="submit" name="add_to_wishlist" class="btn">

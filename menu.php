@@ -5,7 +5,8 @@ session_start(); // Start the session
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 } else {
-    $user_id = '';
+    header('Location: login.php'); // Redirect if user is not logged in
+    exit;
 } 
 
 $success_msg = [];
@@ -21,7 +22,7 @@ include 'components/add_cart.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gebeya Link- Our Shop</title>
+    <title>Gebeya Link - Our Shop</title>
     <link rel="icon" href="image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -29,14 +30,7 @@ include 'components/add_cart.php';
 <body>
 
 <?php include 'components/user_header.php'; ?>
-<div class="banner"> 
-    <div class="detail" style="padding:400px;"> 
-        <h1>Our Shop</h1> 
-        <p>Gebeya Link is dedicated to providing high-quality agricultural products. We focus on sustainable practices <br>and supporting local farmers to ensure fresh and nutritious offerings.<br>
-        Our mission is to connect consumers with the best produce while promoting responsible farming.</p> 
-        <span><a href="home.php">Home</a> <i class="fa-solid fa-arrow-right"></i> Our Shop</span> 
-    </div> 
-</div>
+
 <div class="products"> 
     <div class="heading"> 
         <h1>Our Latest Products</h1> 
@@ -54,6 +48,7 @@ include 'components/add_cart.php';
         // Check if any products were found
         if ($result->num_rows > 0) { 
             while ($fetch_product = $result->fetch_assoc()) { 
+                $seller_id = $fetch_product['seller_id']; // Fetch the seller ID
                 ?>
                 <form action="" method="post" class="box <?php if ($fetch_product['stock'] == 0) { echo 'disabled'; } ?>"> 
                     <img src="uploaded_files/<?= $fetch_product['image']; ?>" class="image"> 
@@ -67,15 +62,20 @@ include 'components/add_cart.php';
                     <div class="content"> 
                         <div class="button"> 
                             <div> 
-                                <h3 class="name"><?= $fetch_product['name']; ?></h3> 
+                                <h3 class="name"><?= htmlspecialchars($fetch_product['name']); ?></h3> 
                             </div> 
                             <div> 
                                 <button type="submit" name="add_to_cart"><i class="fas fa-shopping-cart"></i></button> 
                                 <button type="submit" name="add_to_wishlist"><i class="fas fa-heart"></i></button> 
                                 <a href="view_page.php?pid=<?= $fetch_product['id']; ?>" class="fas fa-eye"></a> 
                             </div>
+                            
                         </div> 
-                        <p class="price">Price: $<?= $fetch_product['price']; ?></p>  
+                        <div> 
+                            <h3>Seller ID: <?= htmlspecialchars($seller_id); ?></h3> 
+                        </div>
+                        
+                        <p class="price">Price: $<?= htmlspecialchars($fetch_product['price']); ?>/-</p>  
                         <input type="hidden" name="product_id" value="<?= $fetch_product['id']; ?>"> 
                         <div class="flex-btn"> 
                             <a href="checkout.php?get_id=<?= $fetch_product['id']; ?>" class="btn">Buy Now</a> 

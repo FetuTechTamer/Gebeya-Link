@@ -5,7 +5,8 @@ session_start(); // Start the session
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 } else {
-    $user_id = '';
+    header('Location: login.php');
+    exit;
 } 
 
 $success_msg = [];
@@ -14,40 +15,31 @@ $warning_msg = [];
 // Sending message 
 if (isset($_POST['send_message'])) { 
     if ($user_id != '') { 
-        $name = $_POST['name']; 
-        $name = filter_var($name, FILTER_SANITIZE_STRING); 
+        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING); 
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); 
+        $subject = filter_var($_POST['subject'], FILTER_SANITIZE_STRING); 
+        $message = filter_var($_POST['message'], FILTER_SANITIZE_STRING); 
+        $seller_id = filter_var($_POST['seller_id'], FILTER_SANITIZE_STRING); // Get the seller ID from the form
 
-        $email = $_POST['email']; 
-        $email = filter_var($email, FILTER_SANITIZE_EMAIL); 
+        // Verify if the message already exists
+        $verify_message = $conn->prepare("SELECT * FROM message WHERE user_id = ? AND email = ? AND subject = ? AND message = ? AND seller_id = ?"); 
+        $verify_message->bind_param("issss", $user_id, $email, $subject, $message, $seller_id); 
+        $verify_message->execute(); 
+        $verify_message->store_result(); // Store the result to get num_rows
 
-        $subject = $_POST['subject']; 
-        $subject = filter_var($subject, FILTER_SANITIZE_STRING); 
-
-        $message = $_POST['message']; 
-        $message = filter_var($message, FILTER_SANITIZE_STRING); 
-
-      // Verify if the message already exists
-$verify_message = $conn->prepare("SELECT * FROM message WHERE user_id = ? AND email = ? AND subject = ? AND message = ?"); 
-$verify_message->bind_param("isss", $user_id, $email, $subject, $message); 
-$verify_message->execute(); 
-$verify_message->store_result(); // Store the result to get num_rows
-
-if($verify_message->num_rows > 0) { 
-    $warning_msg[] = 'Message already exists'; 
-} else { 
-    // Insert the message into the database
-    $insert_message = $conn->prepare("INSERT INTO message (user_id, name, email, subject, message) VALUES (?, ?, ?, ?, ?)"); 
-    $insert_message->bind_param("issss", $user_id, $name, $email, $subject, $message); 
-    $insert_message->execute(); 
-    $success_msg[] = 'Comment inserted successfully'; 
-} 
-} else { 
-    $warning_msg[] = 'Please log in first'; 
+        if ($verify_message->num_rows > 0) { 
+            $warning_msg[] = 'Message already exists'; 
+        } else { 
+            // Insert the message into the database
+            $insert_message = $conn->prepare("INSERT INTO message (user_id, name, email, subject, message, seller_id) VALUES (?, ?, ?, ?, ?, ?)"); 
+            $insert_message->bind_param("isssss", $user_id, $name, $email, $subject, $message, $seller_id); 
+            $insert_message->execute(); 
+            $success_msg[] = 'Message sent successfully'; 
+        } 
+    } else { 
+        $warning_msg[] = 'Please log in first'; 
+    }
 }
-
-}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -128,6 +120,10 @@ if($verify_message->num_rows > 0) {
         <div class="input-field"> 
             <label>Subject <sup>*</sup></label> 
             <input type="text" name="subject" required placeholder="Reason..." class="box"> 
+        </div> 
+        <div class="input-field"> 
+            <label>Seller id <sup>*</sup></label> 
+            <input type="text" name="seller_id" required placeholder="Enter seller id" class="box"> 
         </div> 
         <div class="input-field"> 
             <label>Comment <sup>*</sup></label> 

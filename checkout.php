@@ -41,7 +41,9 @@ if (isset($_POST['place_order'])) {
             $insert_order->bind_param("siisssssssdi", $order_id, $user_id, $seller_id, $name, $number, $email, $address, $address_type, $method, $fetch_p['id'], $fetch_p['price'], $quantity);
             $quantity = 1;
             $insert_order->execute();
+            
             $insert_order->close();
+         
 
             header("Location: order.php");
             exit;

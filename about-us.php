@@ -19,50 +19,7 @@ if (isset($_COOKIE['user_id'])) {
     <link rel="icon" href="image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-    .content {
-        text-align: center;
-        margin: 20px 0;
-    }
-
-    .content h2 {
-        margin-bottom: 10px;
-    }
-
-    .content p {
-        padding-bottom: 10px;
-    }
-
-    .content a {
-        margin-top: 15px;
-        display: inline-block;
-    }
-      .standards {
-        text-align: center;
-        padding: 20px;
-        background-color: #f9f9f9;
-    }
-
-    .detail .box {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .heading h1 {
-        margin-bottom: 10px;
-    }
-
-    .detail .box p {
-        margin: 10px 0;
-        line-height: 1.5;
-    }
-
-    .fa-heart {
-        color: #ff5252; 
-        margin: 0 5px; 
-    }
-</style>
-
+ 
 </head>
 <body>
     <?php include 'components/user_header.php'; ?>
@@ -77,19 +34,14 @@ if (isset($_COOKIE['user_id'])) {
  <div class="developer"> 
     <div class="box-container"> 
         <div class="box"> 
-            <div class="heading"> 
-                <span>Fethiya Abdurehim</span> 
-                <h1>Web Development Manager</h1> 
-                <img src="image/separator.webp" alt="Separator Image"> 
-            </div> 
-            <p>Hey I am Fethiya skilled full stack web developer with a passion for creating responsive and user-friendly websites. With a keen eye for design and detail, I excels in HTML, CSS, and JavaScript. My goal is to deliver exceptional web experiences that engage users.</p> 
-            <div class="flex-btn"> 
-                <a href="https://github.com/FetuTechTamer" class="btn">Explore My Work</a> 
-                <a href="https://fetutechtamer.vercel.app/" class="btn">Visit My Portfolio</a> 
-            </div> 
+             <div class="heading">
+        <h1>Meet the Gebeya Link Team</h1>
+        <img src="image/separator.webp" alt="Separator Image">
+    </div>
+    <p>We are a dedicated team of professionals passionate about creating exceptional digital experiences. Our diverse skills range from web development to design, ensuring that we deliver top-notch services to our users.</p>
         </div> 
         <div class="box"> 
-            <img src="image/about/fetu.jpg" class="img" alt="Fethiya Abdurehim"> 
+            <img src="image/about/team.png" class="img" alt="Fethiya Abdurehim"> 
         </div> 
     </div> 
 </div>
@@ -173,6 +125,15 @@ if (isset($_COOKIE['user_id'])) {
                 <a href="https://github.com/Lema-TR" class="btn">Github</a>
             </div> 
         </div> 
+        <div class="box"> 
+            <img src="image/about/ab.jpg" class="img" alt="Abate Alemu"> 
+            <div class="content"> 
+                <h2>Abate Alemu</h2> 
+                <p>Security Analyst</p> 
+                <p>Hi there! I’m Abate, dedicated to ensuring the safety and integrity of our digital assets.</p>
+                <a href="https://github.com/abateIS" class="btn">Github</a>
+            </div> 
+        </div>
     </div> 
 </div>
 <!-- Team section end -->

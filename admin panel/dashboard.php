@@ -41,17 +41,24 @@ if (isset($_COOKIE['seller_id'])) {
                     <a href="update.php" class="btn">Update Profile</a>
                 </div>
                 
-                <div class="box">
-                    <?php
-                    $select_message = $conn->prepare("SELECT * FROM `message`");
-                    $select_message->execute(); // Correct the method name
-                    $result_messages = $select_message->get_result(); // Get the result set
-                    $number_of_msg = $result_messages->num_rows; // Get the number of messages
-                    ?>
-                    <h3><?= $number_of_msg ?></h3>
-                    <p>Unread messages</p>
-                    <a href="admin_message.php" class="btn">See messages</a>
-                </div>
+            <div class="box">
+                <?php
+                if (isset($_COOKIE['seller_id'])) {
+                    $seller_id = filter_var($_COOKIE['seller_id'], FILTER_SANITIZE_STRING);
+                    $select_message = $conn->prepare("SELECT * FROM `message` WHERE seller_id = ?");
+                    $select_message->bind_param("s", $seller_id);
+                    $select_message->execute();
+                    $result_messages = $select_message->get_result();
+                    $number_of_msg = $result_messages->num_rows;
+                } else {
+                    $number_of_msg = 0;
+                }
+                ?>
+                <h3><?= $number_of_msg ?></h3>
+                <p>Your messages</p>
+                <a href="admin_message.php" class="btn">See messages</a>
+            </div>
+
                 
                 <div class="box">
                     <?php

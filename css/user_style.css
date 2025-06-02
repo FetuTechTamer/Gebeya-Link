@@ -1637,7 +1637,7 @@ footer .bottom a {
 .order-detail .box-container .box { 
     display: flex; 
     gap: 1.5rem; 
-    flex-wrap: wrap; 
+    flex-wrap: wrap;  menu-btn
     align-items: center; 
     overflow-x: hidden; 
 } 

@@ -3,7 +3,7 @@
         <img src="../image/logo.webp" alt="Company Logo" width="150">
     </div>
     <div class="right">
-        <div class="fas fa-user" id="user-btn"></div>
+        <div class="fa-solid fa-user" id="user-btn"></div>
         <div class="toggle-btn"><i class="fas fa-bars"></i></div>
     </div>
     <div class="profile-detail">

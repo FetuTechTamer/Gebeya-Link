@@ -50,55 +50,66 @@ if (isset($_POST['delete_msg'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messages</title>
-     <link rel="icon" href="../image/favicon.ico" type="image/png">
+    <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="main-container">
         <?php include '../components/admin_header.php'; ?>
-        <section class="message-container">
-            <div class="heading">
-                <h1>Unread Message</h1>
-                <img src="../image/separator.webp">
-            </div>
-            <div class="box-container">
-                <?php 
-                $select_message = $conn->prepare("SELECT * FROM message"); 
-                $select_message->execute(); 
-                $result = $select_message->get_result(); // Get the result set
+       <section class="message-container">
+    <div class="heading">
+        <h1>All Messages</h1>
+        <img src="../image/separator.webp">
+    </div>
 
-                if ($result->num_rows > 0) { 
-                    while ($fetch_message = $result->fetch_assoc()) { 
-                ?> 
-                <div class="box"> 
-                    <h3 class="name"><?= $fetch_message['name']; ?></h3> 
-                    <h4><?= $fetch_message['subject']; ?></h4> 
-                    <p><?= $fetch_message['message']; ?></p> 
-                    <form action="" method="post"> 
-                        <input type="hidden" name="delete_id" value="<?= $fetch_message['id']; ?>"> 
-                        <input type="submit" name="delete_msg" value="Delete Message" class="btn" 
-                        onclick="return confirm('Are you sure you want to delete this message?');"> 
-                    </form> 
-                </div> 
-                <?php 
-                    } 
-                    } else { 
-                        echo '
-                        <div class="empty">
-                            <p>No unread messages yet!</p>
-                        </div>
-                         '; 
-                    }
-                    ?>
-            </div>
-        </section>
+    <div class="box-container">
+    <?php 
+    // Fetch only messages for the logged-in seller
+    $select_message = $conn->prepare("SELECT * FROM message WHERE seller_id = ? ORDER BY id DESC");
+    $select_message->bind_param("s", $seller_id);
+    $select_message->execute();
+    $result = $select_message->get_result();
+    $message_count = $result->num_rows;
+
+    $i = 0;
+    if ($message_count > 0) {
+        while ($fetch_message = $result->fetch_assoc()) {
+            if ($i % 2 == 0) echo '<div class="row">';
+    ?>
+        <div class="box"> 
+            <h3 class="name"><?= htmlspecialchars($fetch_message['name']); ?></h3> 
+            <h4>Email: <?= htmlspecialchars($fetch_message['email']); ?></h4> 
+            <h4>Subject: <?= htmlspecialchars($fetch_message['subject']); ?></h4> 
+            <p>Message: <?= htmlspecialchars($fetch_message['message']); ?></p> 
+            <form action="" method="post"> 
+                <input type="hidden" name="delete_id" value="<?= htmlspecialchars($fetch_message['id']); ?>"> 
+                <input type="submit" name="delete_msg" value="Delete Message" class="btn" 
+                onclick="return confirm('Are you sure you want to delete this message?');"> 
+            </form> 
+        </div>
+    <?php 
+            $i++;
+            if ($i % 2 == 0) echo '</div>';
+        }
+        if ($i % 2 != 0) echo '</div>'; // close last row if odd
+    } else { 
+        echo '
+        <div class="empty">
+            <p>No messages found for your account.</p>
+        </div>
+        '; 
+    }
+    ?>
+</div>
+
+</section>
+
     </div>   
 
-    <!----- sweetalert cdn link ----->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <!----- SweetAlert CDN link ----->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="../js/admin_script.js"></script>
     <?php include '../components/alert.php'; ?>
 </body>
 </html>
-
