@@ -57,7 +57,6 @@
 
             if ($result && $result->num_rows > 0) {
                 $fetch_profile = $result->fetch_assoc();
-                $result->free(); // Free the result set
         ?> 
                 <img src="uploaded_files/<?= htmlspecialchars($fetch_profile['image']); ?>" alt="Profile Image"> 
                 <h3 style="margin-bottom: 1rem;"><?= htmlspecialchars($fetch_profile['name']); ?></h3> 

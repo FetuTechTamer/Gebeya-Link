@@ -294,6 +294,7 @@ input[type='submit']:hover{
     color: var(--main-color); 
     cursor: pointer; 
 }
+
 .header .flex .search-form {
     width: 30rem;
     border-radius: .5rem;
@@ -368,7 +369,7 @@ input[type='submit']:hover{
     } 
 }
 .profile-detail.active{
-    display: block;
+    display: inline-block;
 }
 .profile-detail h3{
     padding-bottom: .7rem;
@@ -869,7 +870,7 @@ input[type='submit']:hover{
 }
 
 footer {  
-    background-image: url('../image/catagory/left-banner2.jpg'); 
+    background-image: url('../image/catagory/slider-1.jpg'); 
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center; 
@@ -1168,9 +1169,9 @@ footer .bottom a {
 @media (max-width: 991px) {
   #search-btn,
   #menu-btn {
-    display: block;
+    display: inline-block;
   }
-  .header.flex .search-form {
+  .header .flex .search-form {
     position: absolute;
     top: 99%;
     left: 0;
@@ -1182,10 +1183,10 @@ footer .bottom a {
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
     transition: .2s linear;
   }
-  .header.flex .search-form.active {
+  .header .flex .search-form.active {
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
   }
-  .header.flex .navbar {
+  .header .flex .navbar {
   display: block;
   position: absolute;
   top: 100%;
@@ -1197,10 +1198,10 @@ footer .bottom a {
   clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
   transition: 0.5s;
 }
-.header.flex .navbar.active {
+.header .flex .navbar.active {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
-.header.flex .navbar a {
+.header .flex .navbar a {
   display: block;
   margin: 1.5rem 0;
   padding: 1rem;
@@ -1209,7 +1210,7 @@ footer .bottom a {
   border-radius: .5rem;
   color: #fff; 
 }
-.header.flex .navbar a:hover{
+.header .flex .navbar a:hover{
     color: #000;
 }
 .divider{

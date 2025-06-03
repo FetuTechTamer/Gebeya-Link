@@ -26,9 +26,9 @@ if (isset($_POST['place_order'])) {
 
     // Check single product order
     if (isset($_GET['get_id'])) {
-        $get_id = $_GET['get_id'];
+        $get_id = filter_input(INPUT_GET, 'get_id', FILTER_SANITIZE_STRING);
         $get_product = $conn->prepare("SELECT * FROM product WHERE id = ? LIMIT 1");
-        $get_product->bind_param("i", $get_id);
+        $get_product->bind_param("s", $get_id);
         $get_product->execute();
         $result = $get_product->get_result();
 
@@ -36,35 +36,36 @@ if (isset($_POST['place_order'])) {
             $fetch_p = $result->fetch_assoc();
             $seller_id = $fetch_p['seller_id'];
             $order_id = uniqid();
+            $product_id = $fetch_p['id'];
+            $price = (int)$fetch_p['price'];
+            $quantity = 1;
 
             $insert_order = $conn->prepare("INSERT INTO orders (id, user_id, seller_id, name, number, email, address, address_type, method, product_id, price, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $insert_order->bind_param("siisssssssdi", $order_id, $user_id, $seller_id, $name, $number, $email, $address, $address_type, $method, $fetch_p['id'], $fetch_p['price'], $quantity);
-            $quantity = 1;
+            $insert_order->bind_param("ssssssssssii", $order_id, $user_id, $seller_id, $name, $number, $email, $address, $address_type, $method, $product_id, $price, $quantity);
             $insert_order->execute();
-            
             $insert_order->close();
-         
 
+            $_SESSION['success_msg'] = 'Your order has been placed successfully.';
             header("Location: order.php");
             exit;
         } else {
-            $warning_msg[] = 'Something went wrong. Product not found.';
+            $_SESSION['warning_msg'] = 'Something went wrong. Product not found.';
         }
     } else {
         // Multi-product (cart) order
         $verify_cart = $conn->prepare("SELECT * FROM cart WHERE user_id = ?");
-        $verify_cart->bind_param("i", $user_id);
+        $verify_cart->bind_param("s", $user_id);
         $verify_cart->execute();
         $cart_result = $verify_cart->get_result();
 
         if ($cart_result->num_rows > 0) {
             while ($f_cart = $cart_result->fetch_assoc()) {
                 $product_id = $f_cart['product_id'];
-                $quantity = $f_cart['quantity'];
-                $price = $f_cart['price'];
+                $quantity = (int)$f_cart['quantity'];
+                $price = (int)$f_cart['price'];
 
                 $s_products = $conn->prepare("SELECT * FROM product WHERE id = ? LIMIT 1");
-                $s_products->bind_param("i", $product_id);
+                $s_products->bind_param("s", $product_id);
                 $s_products->execute();
                 $product_result = $s_products->get_result();
 
@@ -81,16 +82,16 @@ if (isset($_POST['place_order'])) {
                 $s_products->close();
             }
 
-            // Clear the cart after order
             $delete_cart = $conn->prepare("DELETE FROM cart WHERE user_id = ?");
-            $delete_cart->bind_param("i", $user_id);
+            $delete_cart->bind_param("s", $user_id);
             $delete_cart->execute();
             $delete_cart->close();
 
+            $_SESSION['success_msg'] = 'Your order for all cart items was placed successfully.';
             header('Location: order.php');
             exit;
         } else {
-            $warning_msg[] = 'Your cart is empty!';
+            $_SESSION['warning_msg'] = 'Your cart is empty!';
         }
     }
 }

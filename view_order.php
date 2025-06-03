@@ -1,30 +1,23 @@
 <?php
 include 'components/connect.php';
-session_start(); // Start the session
+session_start();
 
-if (isset($_COOKIE['user_id'])) {
-    $user_id = $_COOKIE['user_id'];
-} else {
-    $user_id = '';
-}
-
-if (isset($_GET['get_id'])) {
-    $get_id = $_GET['get_id'];
-} else {
-    header('location:order.php');
-    exit(); // Ensure no further code is executed
-}
+$user_id = isset($_COOKIE['user_id']) ? $_COOKIE['user_id'] : '';
+$get_id = isset($_GET['get_id']) ? $_GET['get_id'] : header('location:order.php') && exit();
 
 $success_msg = [];
 $warning_msg = [];
 
 if (isset($_POST['cancel'])) { 
+    $status = 'canceled';
     $update_order = $conn->prepare("UPDATE orders SET status = ? WHERE id = ?"); 
-    $update_order->bind_param("ss", $status, $get_id); 
-    $status = 'canceled'; 
-    $update_order->execute(); 
-    header('Location: order.php'); 
-    exit(); // Ensure no further code is executed
+    $update_order->bind_param("si", $status, $get_id);
+
+    if ($update_order->execute()) {
+        $success_msg[] = "Order has been successfully canceled.";
+    } else {
+        $warning_msg[] = "Failed to cancel the order. Please try again.";
+    }
 }
 ?>
 
@@ -45,8 +38,7 @@ if (isset($_POST['cancel'])) {
 <div class="banner"> 
     <div class="detail" style="padding: 400px;"> 
         <h1>Order Detail</h1> 
-        <p>Gebeya Link is dedicated to providing high-quality agricultural products. We focus on sustainable practices and supporting local farmers to ensure fresh and nutritious offerings.<br>
-        Our mission is to connect consumers with the best produce while promoting responsible farming.</p> 
+        <p>Gebeya Link is dedicated to providing high-quality agricultural products, focusing on sustainable practices and supporting local farmers.</p> 
         <span><a href="home.php">Home</a> <i class="fa-solid fa-arrow-right"></i> Order Detail Now</span> 
     </div> 
 </div>
@@ -57,6 +49,16 @@ if (isset($_POST['cancel'])) {
         <p>View the details of your product orders below.</p> 
         <img src="image/separator.webp"> 
     </div>
+    
+    <?php 
+    if (!empty($success_msg)) {
+        echo '<div class="success">' . implode('<br>', $success_msg) . '</div>';
+    }
+    if (!empty($warning_msg)) {
+        echo '<div class="warning">' . implode('<br>', $warning_msg) . '</div>';
+    }
+    ?>
+
     <div class="box-container"> 
     <?php 
     $grand_total = 0; 
@@ -64,16 +66,18 @@ if (isset($_POST['cancel'])) {
     $select_order->bind_param("i", $get_id); 
     $select_order->execute(); 
     $order_result = $select_order->get_result(); 
+
     if ($order_result->num_rows > 0) { 
         while ($fetch_order = $order_result->fetch_assoc()) { 
             $select_product = $conn->prepare("SELECT * FROM product WHERE id = ? LIMIT 1"); 
             $select_product->bind_param("i", $fetch_order['product_id']); 
             $select_product->execute(); 
             $product_result = $select_product->get_result(); 
+
             if ($product_result->num_rows > 0) { 
                 while ($fetch_product = $product_result->fetch_assoc()) { 
-                   $sub_total = ($fetch_order['price'] * $fetch_order['quantity']);
-                   $grand_total += $sub_total;
+                    $sub_total = $fetch_order['price'] * $fetch_order['quantity'];
+                    $grand_total += $sub_total;
     ?>
 <div class="box"> 
     <div class="col"> 
@@ -115,7 +119,7 @@ if (isset($_POST['cancel'])) {
             } 
         } 
     } else {
-        echo '<p class="empty">No orders have taken place yet.</p>';
+        echo '<p class="empty">No orders have taken place yet.</p>'; 
     }
     ?> 
     </div> 
@@ -123,7 +127,6 @@ if (isset($_POST['cancel'])) {
 
 <?php include 'components/footer.php'; ?>
 
-<!----- SweetAlert CDN link ----->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script src="js/user_script.js"></script>
 <?php include 'components/alert.php'; ?>
