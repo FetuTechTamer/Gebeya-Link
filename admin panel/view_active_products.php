@@ -5,7 +5,7 @@ if (isset($_COOKIE['seller_id'])) {
     $seller_id = $_COOKIE['seller_id'];
 } else {
     header('location:login.php');
-    exit(); // Ensure to exit after redirecting
+    exit(); 
 }
 
 // Delete product
@@ -57,7 +57,7 @@ if (isset($_POST['delete'])) {
                     <div class="status" style="color: limegreen;">
                         <?= $fetch_products['status']; ?>
                     </div>
-                    <div class="price">$<?= $fetch_products['price']; ?></div>
+                    <div class="price"><?= $fetch_products['price']; ?> birr</div>
                     <div class="content">
                         <div class="title"><?= $fetch_products['name']; ?></div>
                         <div class="flex-btn">

@@ -72,12 +72,23 @@ if (isset($_POST['empty_cart'])) {
     <link rel="icon" href="image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      <style>
+        .banner .detail {
+        padding: 50px;
+    }
+
+    @media (min-width: 1024px) { 
+        .banner .detail {
+            padding: 400px; 
+        }
+    }
+    </style>
 </head>
 <body>
 
 <?php include 'components/user_header.php'; ?>
 <div class="banner"> 
-    <div class="detail" style="padding:400px;"> 
+    <div class="detail" > 
         <h1>Cart</h1> 
         <p>Gebeya Link is dedicated to providing high-quality agricultural products...</p> 
         <span><a href="home.php">Home</a> <i class="fa-solid fa-arrow-right"></i> Cart</span> 
@@ -126,7 +137,7 @@ if (isset($_POST['empty_cart'])) {
                     <div class="content"> 
                         <h3 class="name"><?= htmlspecialchars($fetch_products['name']); ?></h3> 
                         <div class="flex-btn"> 
-                            <p class="price">Price: $<?= htmlspecialchars($fetch_products['price']); ?>/-</p> 
+                            <p class="price">Price: <?= htmlspecialchars($fetch_products['price']); ?>birr</p> 
                             <input type="number" name="quantity" required min="1" value="<?= $fetch_cart['quantity']; ?>" max="99" maxlength="2" class="box qty"> 
                             <button type="submit" name="update_cart" class="fa fa-edit"></button>
                         </div> 
@@ -150,7 +161,7 @@ if (isset($_POST['empty_cart'])) {
 
     <?php if ($grand_total != 0) { ?> 
     <div class="cart-total"> 
-        <p>Total amount payable: <span>$<?= htmlspecialchars($grand_total); ?>/-</span></p> 
+        <p>Total amount payable: <span><?= htmlspecialchars($grand_total); ?>birr</span></p> 
         <div class="button"> 
             <form action="" method="post"> 
                 <button type="submit" name="empty_cart" class="btn" onclick="return confirm('Are you sure you want to empty your cart?');">Empty Cart</button> 

@@ -273,7 +273,11 @@ header{
 header .right{
     display: flex;
 }
-,
+#user-btn{
+     font-size: 2rem; 
+    color: var(--main-color); 
+    cursor: pointer; 
+}
  .toggle-btn{
     font-size: 2rem;
     padding: .5rem;
@@ -487,7 +491,7 @@ z-index: 1;
         /* Styles for the box container */
         .show-post .box-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Two columns */
+            grid-template-columns: repeat(3, 1fr); /* Two columns */
             gap: 20px; /* Space between boxes */
             padding: 20px; /* Optional padding */
         }
@@ -721,10 +725,10 @@ z-index: 1;
     height: 120px; 
     border-radius: 50%; 
     box-shadow: var(--box-shadow); 
-    padding: 0; /* Adjusted padding for images */
+    padding: 0;
     background-color: var(--white-alpha-40); 
     margin-top: -5rem; 
-    margin-bottom: 1rem; /* Corrected to valid value */
+    margin-bottom: 1rem;
 }
 
 
@@ -737,19 +741,19 @@ z-index: 1;
     .sidebar {
         padding-top: 4rem;
         position: fixed;
-        width: 0; /* Ensure it starts hidden */
-        transition: width 0.5s; /* Smooth transition on width */
+        width: 0;
+        transition: width 0.5s;
         z-index: 101;
         top: 7%;
     }
     .sidebar.active {
-        width: 300px; /* Corrected selector */
+        width: 300px;
     }
     .sidebar .profile {
         margin-top: .5rem;
     }
     section {
-        width: 100%; /* Ensure sections take full width */
+        width: 100%; 
     }
 }
   

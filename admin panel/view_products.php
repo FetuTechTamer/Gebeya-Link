@@ -41,7 +41,7 @@ if (isset($_POST['delete'])) {
             </div>
             <div class="box-container">
                 <?php
-                // Prepare the SQL statement to select products
+             
                 $select_products = $conn->prepare("SELECT * FROM `product` WHERE seller_id = ?");
                 $select_products->bind_param("s", $seller_id);
                 $select_products->execute();
@@ -50,7 +50,7 @@ if (isset($_POST['delete'])) {
                 if ($result_products->num_rows > 0) {
                     while ($fetch_products = $result_products->fetch_assoc()) {
                 ?>
-                <form action="" method="post" class="box" ;>
+                <form action="" method="post" class="box" ; >
                     <input type="hidden" name="product_id" value="<?= $fetch_products['id']; ?>">
                     <?php if ($fetch_products['image'] != '') { ?>
                         <img src="../uploaded_files/<?= $fetch_products['image']; ?>" class="image" alt="Product Image">
@@ -58,7 +58,7 @@ if (isset($_POST['delete'])) {
                     <div class="status" style="color: <?= $fetch_products['status'] == 'active' ? 'limegreen' : 'coral'; ?>">
                         <?= $fetch_products['status']; ?>
                     </div>
-                    <div class="price">$<?= $fetch_products['price']; ?></div>
+                    <div class="price"><?= $fetch_products['price']; ?>birr</div>
                     <div class="content">
                         <div class="title"><?= $fetch_products['name']; ?></div>
                         <div class="flex-btn">

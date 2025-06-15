@@ -32,7 +32,7 @@
                                 <a href="view_page.php?pid=<?= $fetch_product['id']; ?>" class="fas fa-eye"></a> 
                             </div>
                         </div> 
-                        <p class="price">Price: $<?= $fetch_product['price']; ?></p>  
+                        <p class="price">Price: <?= $fetch_product['price']; ?>birr</p>  
                         <input type="hidden" name="product_id" value="<?= $fetch_product['id']; ?>"> 
                         <div class="flex-btn"> 
                             <a href="checkout.php?get_id=<?= $fetch_product['id']; ?>" class="btn">Buy Now</a> 

@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start session at the very beginning
+session_start(); 
 include '../components/connect.php';
 
 // Retrieve messages from session
@@ -40,7 +40,7 @@ if (isset($_POST['delete_msg'])) {
         $_SESSION['warning_msg'][] = "Message not found or unauthorized";
     }
     
-    header("Location: ".$_SERVER['PHP_SELF']); // Redirect to prevent resubmission
+    header("Location: ".$_SERVER['PHP_SELF']); 
     exit();
 }
 ?>
@@ -92,7 +92,7 @@ if (isset($_POST['delete_msg'])) {
             $i++;
             if ($i % 2 == 0) echo '</div>';
         }
-        if ($i % 2 != 0) echo '</div>'; // close last row if odd
+        if ($i % 2 != 0) echo '</div>';
     } else { 
         echo '
         <div class="empty">

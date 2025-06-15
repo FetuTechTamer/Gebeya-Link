@@ -8,10 +8,10 @@ if (isset($_COOKIE['seller_id'])) {
     $fetch_profile_query = $conn->prepare("SELECT * FROM `seller` WHERE id = ?");
     $fetch_profile_query->bind_param("s", $seller_id);
     $fetch_profile_query->execute();
-    $fetch_profile = $fetch_profile_query->get_result()->fetch_assoc(); // Fetch the profile data
+    $fetch_profile = $fetch_profile_query->get_result()->fetch_assoc(); 
 } else {
     header('location:login.php');
-    exit(); // Make sure to exit after redirecting
+    exit(); 
 }
 
 ?>
@@ -24,28 +24,27 @@ if (isset($_COOKIE['seller_id'])) {
     <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-      <style>
-        /* Add this CSS for layout */
+    <style>
         .box-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between; /* Distribute space evenly */
+            justify-content: space-between;
         }
         .box {
-            flex: 0 0 30%; /* Each box takes up 30% of the width */
-            margin: 1%; /* Margin for spacing */
-            border: 1px solid #ccc; /* Optional: border for boxes */
-            padding: 10px; /* Optional: padding for boxes */
-            text-align: center; /* Center align text */
+            flex: 0 0 30%;
+            margin: 1%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
         }
         @media (max-width: 768px) {
             .box {
-                flex: 0 0 45%; /* Adjust for smaller screens */
+                flex: 0 0 45%;
             }
         }
         @media (max-width: 480px) {
             .box {
-                flex: 0 0 100%; /* Stack boxes on small screens */
+                flex: 0 0 100%;
             }
         }
     </style>
@@ -60,9 +59,18 @@ if (isset($_COOKIE['seller_id'])) {
             </div>
             <div class="box-container">
                 <?php 
-                $select_users = $conn->prepare("SELECT * FROM user"); 
+                // Fetch users who ordered from the specific seller
+                $select_users = $conn->prepare("
+                    SELECT u.* 
+                    FROM user u 
+                    JOIN orders o ON u.id = o.user_id 
+                    WHERE o.product_id IN (
+                        SELECT id FROM product WHERE seller_id = ?
+                    )
+                ");
+                $select_users->bind_param("s", $seller_id);
                 $select_users->execute(); 
-                $result_users = $select_users->get_result(); // Get the result set
+                $result_users = $select_users->get_result(); 
 
                 if ($result_users->num_rows > 0) { 
                     while ($fetch_users = $result_users->fetch_assoc()) { 
@@ -79,7 +87,7 @@ if (isset($_COOKIE['seller_id'])) {
                 } else {
                      echo '
                         <div class="empty">
-                            <p>No user registered yet!</p>
+                            <p>No users have ordered from this seller yet!</p>
                         </div>
                          '; 
                 }

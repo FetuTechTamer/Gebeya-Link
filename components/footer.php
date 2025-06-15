@@ -34,6 +34,7 @@
 <footer> 
     <div class="content"> 
         <div class="box"> 
+            <img src="image/logo1.png" width="130" alt="Logo">
             <p>We're always looking for talented and motivated people. Don't be shy, introduce yourself!</p> 
             <a href="contact.php" class="btn">Contact Now</a> 
         </div> 
@@ -63,17 +64,18 @@
             <p><i class="bx bxs-phone"></i> +251 934 108 842</p> 
             <p><i class="bx bxs-envelope"></i> fethiyaabdurehim7@gmail.com</p> 
             <p><i class="bx bxs-location-plus"></i> Addis Ababa, Ethiopia</p> 
-            <div class="icons"> 
-                <i class="bx bxl-facebook"></i> 
-                <i class="bx bxl-twitter"></i> 
-                <i class="bx bxl-instagram"></i> 
-                <i class="bx bxl-linkedin"></i> 
-            </div> 
+        <div class="icons"> 
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
         </div>
     </div> 
-    
-    <p>Copyright © 2023 Gebeya Link Co. All Rights Reserved</p> 
-    <a href="admin panel/login.php">Become a Seller</a> 
-
+    <div class="bottom">
+        <p>Copyright © 2023 Gebeya Link Co. All Rights Reserved</p> 
+        <a href="admin panel/login.php">Become a Seller</a> 
+    </div>
 </footer>
 

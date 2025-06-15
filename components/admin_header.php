@@ -1,6 +1,6 @@
 <header>
     <div class="logo">
-        <img src="../image/logo.webp" alt="Company Logo" width="150">
+        <img src="../image/logo1.png" alt="Company Logo" width="150">
     </div>
     <div class="right">
         <div class="fa-solid fa-user" id="user-btn"></div>

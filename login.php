@@ -1,6 +1,6 @@
 <?php
 include 'components/connect.php';
-session_start(); // Start the session
+session_start();
 
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
@@ -73,6 +73,7 @@ if (!empty($warning_msg)) {
         </div>
         
         <p class="link">Do not have an account?<a href="register.php"> Register now</a></p>
+        <p class="link">Forget Password?<a href="password_reset.php"> Reset now</a></p>
         <input type="submit" name="submit" value="Login Now" class="btn">
     </form>
 </div>

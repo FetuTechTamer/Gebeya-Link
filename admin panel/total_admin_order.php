@@ -13,15 +13,16 @@ if (isset($_COOKIE['seller_id'])) {
     exit();
 }
 
-// Fetch confirmed orders with status "in progress"
-$status = 'in progress';
-$select_confirm_orders = $conn->prepare("SELECT orders.*, product.name AS product_name 
-                                         FROM orders 
-                                         JOIN product ON orders.product_id = product.id 
-                                         WHERE orders.seller_id = ? AND orders.status = ?");
-$select_confirm_orders->bind_param("ss", $seller_id, $status); 
-$select_confirm_orders->execute(); 
-$result_confirm_orders = $select_confirm_orders->get_result(); 
+// Fetch all orders for the seller
+$select_orders = $conn->prepare("
+    SELECT orders.*, product.name AS product_name 
+    FROM orders 
+    JOIN product ON orders.product_id = product.id 
+    WHERE orders.seller_id = ?
+");
+$select_orders->bind_param("s", $seller_id); 
+$select_orders->execute(); 
+$result_orders = $select_orders->get_result(); 
 ?>
 
 <!DOCTYPE html>
@@ -29,11 +30,11 @@ $result_confirm_orders = $select_confirm_orders->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmed Orders</title>
+    <title>Total Orders</title>
     <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-      <style>
+       <style>
         /* Add this CSS for layout */
         .box-container {
             display: flex;
@@ -64,18 +65,18 @@ $result_confirm_orders = $select_confirm_orders->get_result();
         <?php include '../components/admin_header.php'; ?>
         <section class="order-container">
             <div class="heading">
-                <h1>Confirmed Orders (In Progress)</h1>
+                <h1>Total Orders</h1>
                 <img src="../image/separator.webp">
             </div>
             <div class="box-container">
                 <?php 
-                if ($result_confirm_orders->num_rows > 0) { 
-                    while ($fetch_order = $result_confirm_orders->fetch_assoc()) { 
+                if ($result_orders->num_rows > 0) { 
+                    while ($fetch_order = $result_orders->fetch_assoc()) { 
                 ?> 
 <div class="box"> 
-    <div class="status" style="color: limegreen;">
-            <?= htmlspecialchars($fetch_order['status']); ?>
-    </div> 
+ <div class="status" style="color: <?= ($fetch_order['status'] == 'in progress') ? 'limegreen' : (($fetch_order['status'] == 'canceled') ? 'red' : 'black'); ?>">
+    <?= htmlspecialchars($fetch_order['status']); ?>
+</div>
     <div class="details">
         <p>User Name: <span><?= htmlspecialchars($fetch_order['name']); ?></span></p> 
         <p>User ID: <span><?= htmlspecialchars($fetch_order['user_id']); ?></span></p> 
@@ -94,7 +95,7 @@ $result_confirm_orders = $select_confirm_orders->get_result();
                 } else { 
                     echo '
                     <div class="empty">
-                        <p>No confirmed orders in progress!</p>
+                        <p>No orders placed yet!</p>
                     </div>
                     '; 
                 }

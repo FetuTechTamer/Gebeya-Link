@@ -8,15 +8,15 @@ if (isset($_COOKIE['seller_id'])) {
     $fetch_profile_query = $conn->prepare("SELECT * FROM `seller` WHERE id = ?");
     $fetch_profile_query->bind_param("s", $seller_id);
     $fetch_profile_query->execute();
-    $fetch_profile = $fetch_profile_query->get_result()->fetch_assoc(); // Fetch the profile data
+    $fetch_profile = $fetch_profile_query->get_result()->fetch_assoc(); 
 } else {
     $seller_id = '';
     header('location:login.php');
-    exit(); // Make sure to exit after redirecting
+    exit(); 
 }
 if (isset($_POST['submit'])) { 
     $select_seller = $conn->prepare("SELECT * FROM seller WHERE id = ? LIMIT 1"); 
-    $select_seller->bind_param("s", $seller_id); // Assuming $seller_id is a string
+    $select_seller->bind_param("s", $seller_id); 
     $select_seller->execute(); 
     $result = $select_seller->get_result(); 
     $fetch_seller = $result->fetch_assoc(); 
@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
 // Update name
 if (!empty($name)) { 
     $update_name = $conn->prepare("UPDATE seller SET name = ? WHERE id = ?"); 
-    $update_name->bind_param("ss", $name, $seller_id); // Assuming both are strings
+    $update_name->bind_param("ss", $name, $seller_id);
     $update_name->execute(); 
     $success_msg[] = 'Username updated successfully'; 
 } 
@@ -40,7 +40,7 @@ if (!empty($name)) {
 // Update email 
 if (!empty($email)) { 
     $select_email = $conn->prepare("SELECT * FROM seller WHERE id = ? AND email = ?"); 
-    $select_email->bind_param("ss", $seller_id, $email); // Assuming both are strings
+    $select_email->bind_param("ss", $seller_id, $email); 
     $select_email->execute(); 
     $result = $select_email->get_result(); 
 
@@ -48,7 +48,7 @@ if (!empty($email)) {
         $warning_msg[] = 'Email already exists'; 
     } else { 
         $update_email = $conn->prepare("UPDATE seller SET email = ? WHERE id = ?"); 
-        $update_email->bind_param("ss", $email, $seller_id); // Assuming both are strings
+        $update_email->bind_param("ss", $email, $seller_id); 
         $update_email->execute(); 
         $success_msg[] = 'Email updated successfully'; 
     } 
@@ -68,7 +68,7 @@ if (!empty($image)) {
         $warning_msg[] = 'Image size is too large'; 
     } else { 
         $update_image = $conn->prepare("UPDATE seller SET image = ? WHERE id = ?"); 
-        $update_image->bind_param("ss", $rename, $seller_id); // Assuming both are strings
+        $update_image->bind_param("ss", $rename, $seller_id);
         $update_image->execute(); 
         move_uploaded_file($image_tmp_name, $image_folder);
 
@@ -89,7 +89,6 @@ if (!empty($old_pass) || !empty($new_pass) || !empty($cpass)) {
     if (empty($old_pass) || empty($new_pass) || empty($cpass)) {
         $warning_msg[] = 'Please fill in all password fields!';
     } else {
-        // Hash the old password input
         $hashed_old_pass = sha1($old_pass);
 
         // Verify old password

@@ -5,10 +5,10 @@ if (isset($_COOKIE['seller_id'])) {
     $seller_id = $_COOKIE['seller_id'];
 } else {
     header('location:login.php');
-    exit(); // Ensure to exit after redirection
+    exit();
 }
 
-// Initialize message variables
+
 $success_msg = [];
 $warning_msg = [];
 
@@ -22,7 +22,7 @@ if (isset($_POST['update'])) {
     $status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
     
     $stmt = $conn->prepare("UPDATE product SET name=?, price=?, product_detail=?, stock=?, status=? WHERE id=? AND seller_id=?"); 
-    $stmt->bind_param("sdssssi", $name, $price, $description, $stock, $status, $product_id, $seller_id); 
+    $stmt->bind_param("sisisss", $name, $price, $description, $stock, $status, $product_id, $seller_id); 
     $stmt->execute(); 
 
     $success_msg[] = "Product updated successfully!"; 
@@ -63,10 +63,10 @@ if ($result->num_rows === 0) {
     echo '<div class="empty"> 
             <p>Product not found!</p> 
           </div>'; 
-    exit(); // Prevent further execution if no product is found
+    exit();
 }
 
-$fetch_product = $result->fetch_assoc(); // Fetch the selected product
+$fetch_product = $result->fetch_assoc(); 
 ?>
 
 <!DOCTYPE html>
@@ -80,9 +80,9 @@ $fetch_product = $result->fetch_assoc(); // Fetch the selected product
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .image {
-            width: 100px; /* Set desired width */
-            height: 75px; /* Set desired height */
-            object-fit: cover; /* Crop the image to fit the dimensions */
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
             margin-top: 10px;
         }
     </style>

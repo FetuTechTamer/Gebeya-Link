@@ -13,15 +13,17 @@ if (isset($_COOKIE['seller_id'])) {
     exit();
 }
 
-// Fetch confirmed orders with status "in progress"
-$status = 'in progress';
-$select_confirm_orders = $conn->prepare("SELECT orders.*, product.name AS product_name 
-                                         FROM orders 
-                                         JOIN product ON orders.product_id = product.id 
-                                         WHERE orders.seller_id = ? AND orders.status = ?");
-$select_confirm_orders->bind_param("ss", $seller_id, $status); 
-$select_confirm_orders->execute(); 
-$result_confirm_orders = $select_confirm_orders->get_result(); 
+// Fetch canceled orders
+$status = 'canceled';
+$select_canceled_orders = $conn->prepare("
+    SELECT orders.*, product.name AS product_name 
+    FROM orders 
+    JOIN product ON orders.product_id = product.id 
+    WHERE orders.seller_id = ? AND orders.status = ?
+");
+$select_canceled_orders->bind_param("ss", $seller_id, $status); 
+$select_canceled_orders->execute(); 
+$result_canceled_orders = $select_canceled_orders->get_result(); 
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +31,7 @@ $result_confirm_orders = $select_confirm_orders->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmed Orders</title>
+    <title>Canceled Orders</title>
     <link rel="icon" href="../image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="../css/admin_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -64,16 +66,16 @@ $result_confirm_orders = $select_confirm_orders->get_result();
         <?php include '../components/admin_header.php'; ?>
         <section class="order-container">
             <div class="heading">
-                <h1>Confirmed Orders (In Progress)</h1>
+                <h1>Canceled Orders</h1>
                 <img src="../image/separator.webp">
             </div>
             <div class="box-container">
                 <?php 
-                if ($result_confirm_orders->num_rows > 0) { 
-                    while ($fetch_order = $result_confirm_orders->fetch_assoc()) { 
+                if ($result_canceled_orders->num_rows > 0) { 
+                    while ($fetch_order = $result_canceled_orders->fetch_assoc()) { 
                 ?> 
 <div class="box"> 
-    <div class="status" style="color: limegreen;">
+    <div class="status" style="color: red;">
             <?= htmlspecialchars($fetch_order['status']); ?>
     </div> 
     <div class="details">
@@ -94,7 +96,7 @@ $result_confirm_orders = $select_confirm_orders->get_result();
                 } else { 
                     echo '
                     <div class="empty">
-                        <p>No confirmed orders in progress!</p>
+                        <p>No canceled orders!</p>
                     </div>
                     '; 
                 }

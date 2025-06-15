@@ -51,19 +51,23 @@ if (isset($_POST['send_message'])) {
     <link rel="icon" href="image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .img-small {
-    width: 80px;  /* Example size */
-    height: auto;  /* Maintain aspect ratio */
-    
-} 
+   <style>
+        .banner .detail {
+        padding: 50px;
+    }
+
+    @media (min-width: 1024px) { 
+        .banner .detail {
+            padding: 400px; 
+        }
+    }
     </style>
 </head>
 <body>
 
 <?php include 'components/user_header.php'; ?>
  <div class="banner"> 
-        <div class="detail" style="padding:400px;"> 
+        <div class="detail" > 
             <h1>contact us</h1> 
             <p>Gebeya Link is dedicated to providing high-quality agricultural products. We focus on sustainable practices <br>and supporting local farmers to ensure fresh and nutritious offerings.<br>
             Our mission is to connect consumers with the best produce while promoting responsible farming.</p> 

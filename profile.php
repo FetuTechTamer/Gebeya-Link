@@ -65,7 +65,7 @@ $total_message = $result_message->num_rows;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .btn-delete:hover {
-            background-color: #d32f2f; /* Darker red on hover */
+            background-color: #d32f2f;
         }
     </style>
 </head>
@@ -79,10 +79,10 @@ $total_message = $result_message->num_rows;
             </div>
 
             <div class="details" style="transform: translateX(200px);"> 
-                <div class="seller"> 
+                <div class="user"> 
                     <img src="uploaded_files/<?= $fetch_profile['image']; ?>" alt="Profile Image"> 
-                    <h3><?= $fetch_profile['name']; ?></h3> 
-                    <p>User</p> 
+                    <h3 class="name"><?= $fetch_profile['name']; ?></h3> 
+                    <span>User</span>
                     <a href="update.php" class="btn">Update Profile</a> 
                     <form action="" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
                         <button type="submit" name="delete_account" class="btn btn-delete" style="margin-top:20px;">Delete Account</button>
@@ -91,12 +91,12 @@ $total_message = $result_message->num_rows;
                 <div class="flex"> 
                     <div class="box"> 
                         <i class="fas fa-folder-minus"></i> 
-                        <h3><?= $total_orders; ?></h3> 
+                        <span><?= $total_orders; ?></span>
                         <a href="order.php" class="btn">View Orders</a> 
                     </div> 
                     <div class="box"> 
                         <i class="fas fa-folder-chat"></i> 
-                        <h3><?= $total_message; ?></h3> 
+                        <span><?= $total_message; ?></span>
                         <a href="contact.php" class="btn">View Messages</a> 
                     </div> 
                 </div> 
@@ -110,6 +110,6 @@ $total_message = $result_message->num_rows;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="js/user_script.js"></script>
     
-    <?php include 'components/alert.php'; // Include existing alert handling ?>
+    <?php include 'components/alert.php';?>
 </body>
 </html>

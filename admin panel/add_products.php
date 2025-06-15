@@ -6,86 +6,57 @@ if (isset($_COOKIE['seller_id'])) {
 } else {
     $seller_id = '';
     header('location:login.php');
-    exit(); // Make sure to exit after redirection
+    exit();
 }
 
-// Initialize message variables
 $success_msg = [];
 $warning_msg = [];
 
 // Add product in database
-if (isset($_POST['publish'])) {
+if (isset($_POST['publish']) || isset($_POST['draft'])) {
     $id = unique_id();
     $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
     $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
     $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
     $stock = filter_var($_POST['stock'], FILTER_SANITIZE_STRING);
-    $status = 'active'; 
+    $expire_date = filter_var($_POST['expire_date'], FILTER_SANITIZE_STRING); 
+    $status = isset($_POST['publish']) ? 'active' : 'deactive'; 
     $image = $_FILES['image']['name'];
     $image_size = $_FILES['image']['size'];
     $image_tmp_name = $_FILES['image']['tmp_name'];
     $image_folder = '../uploaded_files/' . $image;
 
-    // Check if image already exists
-    $select_image = $conn->prepare("SELECT * FROM `product` WHERE image = ? AND seller_id = ?");
-    $select_image->bind_param("ss", $image, $seller_id);
-    $select_image->execute();
-    $result_image = $select_image->get_result();
+    // Check if the expiration date is in the past
+    $current_date = new DateTime();
+    $selected_date = new DateTime($expire_date);
 
-    // Validate image
+    // Validate image and product existence
     if (empty($image)) {
         $warning_msg[] = 'Please select an image.';
-    } elseif ($result_image->num_rows > 0) {
-        $warning_msg[] = 'Image name repeated.';
-    } elseif ($image_size > 2000000) {
-        $warning_msg[] = 'Image size is too large. Maximum size is 2MB.';
+    } elseif (empty($expire_date) || $selected_date < $current_date) {
+        $warning_msg[] = 'Please provide a valid expiration date in the future.';
     } else {
-        // Move uploaded file if all checks pass
-        move_uploaded_file($image_tmp_name, $image_folder);
+        // Check if product name already exists (case-insensitive)
+        $select_product = $conn->prepare("SELECT * FROM `product` WHERE LOWER(name) = LOWER(?)");
+        $select_product->bind_param("s", $name);
+        $select_product->execute();
+        $result_product = $select_product->get_result();
 
-        // Insert product into database
-        $insert_product = $conn->prepare("INSERT INTO `product` (id, seller_id, name, price, image, stock, product_detail, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $insert_product->bind_param("ssssssss", $id, $seller_id, $name, $price, $image, $stock, $description, $status);
-        $insert_product->execute();
-        $success_msg[] = 'Product inserted successfully!';
-    }
-}
+        // Additional validation checks
+        if ($result_product->num_rows > 0) {
+            $warning_msg[] = 'Product already exists.';
+        } elseif ($image_size > 2000000) {
+            $warning_msg[] = 'Image size is too large. Maximum size is 2MB.';
+        } else {
+            // Move uploaded file if all checks pass
+            move_uploaded_file($image_tmp_name, $image_folder);
 
-// Draft product in database
-if (isset($_POST['draft'])) {
-    $id = unique_id();
-    $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-    $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
-    $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
-    $stock = filter_var($_POST['stock'], FILTER_SANITIZE_STRING);
-    $status = 'deactive'; 
-    $image = $_FILES['image']['name'];
-    $image_size = $_FILES['image']['size'];
-    $image_tmp_name = $_FILES['image']['tmp_name'];
-    $image_folder = '../uploaded_files/' . $image;
-
-    // Check if image already exists
-    $select_image = $conn->prepare("SELECT * FROM `product` WHERE image = ? AND seller_id = ?");
-    $select_image->bind_param("ss", $image, $seller_id);
-    $select_image->execute();
-    $result_image = $select_image->get_result();
-
-    // Validate image
-    if (empty($image)) {
-        $warning_msg[] = 'Please select an image.';
-    } elseif ($result_image->num_rows > 0) {
-        $warning_msg[] = 'Image name repeated.';
-    } elseif ($image_size > 2000000) {
-        $warning_msg[] = 'Image size is too large. Maximum size is 2MB.';
-    } else {
-        // Move uploaded file if all checks pass
-        move_uploaded_file($image_tmp_name, $image_folder);
-
-        // Insert product into database
-        $insert_product = $conn->prepare("INSERT INTO `product` (id, seller_id, name, price, image, stock, product_detail, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $insert_product->bind_param("ssssssss", $id, $seller_id, $name, $price, $image, $stock, $description, $status);
-        $insert_product->execute();
-        $success_msg[] = 'Product saved as draft successfully!';
+            // Insert product into database
+            $insert_product = $conn->prepare("INSERT INTO `product` (id, seller_id, name, price, image, stock, expire_date, product_detail, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $insert_product->bind_param("sssssssss", $id, $seller_id, $name, $price, $image, $stock, $expire_date, $description, $status);
+            $insert_product->execute();
+            $success_msg[] = isset($_POST['publish']) ? 'Product inserted successfully!' : 'Product saved as draft successfully!';
+        }
     }
 }
 ?>
@@ -104,8 +75,8 @@ if (isset($_POST['draft'])) {
     <div class="main-container">
         <?php include '../components/admin_header.php'; ?>
         <section class="post-editor">
-            <div class="heading" >
-                <h1 >Add Products</h1>
+            <div class="heading">
+                <h1>Add Products</h1>
                 <img src="../image/separator.webp">
             </div>
             
@@ -118,7 +89,7 @@ if (isset($_POST['draft'])) {
 
                     <div class="input-field">
                         <p>Product Price <span>*</span></p>
-                        <input type="number" name="price" maxlength="100" placeholder="Add product price" required>
+                        <input type="number" name="price" maxlength="100" placeholder="Add product price in birr" required>
                     </div>
 
                     <div class="input-field">
@@ -129,6 +100,11 @@ if (isset($_POST['draft'])) {
                     <div class="input-field">
                         <p>Product Stock <span>*</span></p>
                         <input type="number" name="stock" maxlength="10" min="0" max="99999999" placeholder="Add product stock" required class="box">
+                    </div>
+
+                    <div class="input-field">
+                        <p>Product Expire Date <span>*</span></p>
+                        <input type="date" name="expire_date" required class="box"> 
                     </div>
 
                     <div class="input-field">

@@ -5,7 +5,7 @@ if (isset($_COOKIE['seller_id'])) {
     $seller_id = $_COOKIE['seller_id'];
 } else {
     header('location:login.php');
-    exit(); // Ensure to exit after redirection
+    exit(); 
 }
 
 // Get the product ID from the URL
@@ -34,7 +34,7 @@ if (isset($_POST['delete'])) {
     $delete_product->execute(); 
     
     header("location:view_products.php");
-    exit(); // Ensure to exit after redirection
+    exit(); 
 }
 
 // Fetch the selected product for the seller
@@ -64,7 +64,7 @@ $result_product = $select_product->get_result();
            
             <?php 
             if ($result_product->num_rows > 0) { 
-                $fetch_product = $result_product->fetch_assoc(); // Fetch the selected product
+                $fetch_product = $result_product->fetch_assoc();
             ?>
             <form action="" method="post" class="box" style=" transform: none;"> 
                 <input type="hidden" name="product_id" value="<?= $fetch_product['id']; ?>"> 
@@ -77,7 +77,7 @@ $result_product = $select_product->get_result();
                     <img src="../uploaded_files/<?= $fetch_product['image']; ?>" class="image" alt="Product Image"> 
                 <?php endif; ?> 
 
-                <div class="price">$<?= $fetch_product['price']; ?>/-</div> 
+                <div class="price"><?= $fetch_product['price']; ?> birr</div> 
                 <div class="title"><?= $fetch_product['name']; ?></div> 
                 <div class="content"><?= $fetch_product['product_detail']; ?></div> 
 

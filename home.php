@@ -41,7 +41,7 @@ if (isset($_COOKIE['user_id'])) {
                         <a href="menu.php" class="btn">Shop Now</a>
                     </div>
                     <div class="imgBox">
-                        <img src="image/slider-1.jpg">
+                        <img src="image/catagory/slider-1.jpg">
                     </div>
                 </div>
                 <div class="slideBox ">

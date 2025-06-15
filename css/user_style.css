@@ -288,11 +288,11 @@ input[type='submit']:hover{
     align-items: center;
     justify-content: space-between;
 }
-.header .flex .icons div, 
 .header .flex .icons a { 
     font-size: .5rem; 
     color: var(--main-color); 
     cursor: pointer; 
+    margin: 0 0.5rem;
 }
 
 .header .flex .search-form {
@@ -369,7 +369,7 @@ input[type='submit']:hover{
     } 
 }
 .profile-detail.active{
-    display: inline-block;
+    display: block;
 }
 .profile-detail h3{
     padding-bottom: .7rem;
@@ -395,7 +395,7 @@ input[type='submit']:hover{
 } 
 .header .navbar { 
     display: flex; 
-    margin: .5rem 0; 
+    margin: .5rem 0;
 } 
 .header .navbar a { 
     font-size: 1.3rem; 
@@ -432,7 +432,7 @@ input[type='submit']:hover{
 }
 .slider-container .imgBox img {
   width: 100%;
-  height: 110vh;
+  height: 110vh; 
 }
 .slider-container .textBox h1 {
   font-size: 3rem;
@@ -507,8 +507,8 @@ input[type='submit']:hover{
   padding: 4%;
 }
 .categories .box-container {
-  padding-top: 4%;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  padding-top: 2%;
+  grid-template-columns: repeat(auto-fit, minmax(2rem, 1fr));
 }
 .categories .box-container .box {
   margin: .5rem;
@@ -879,7 +879,7 @@ footer {
 } 
 
 footer .content { 
-    display: grid;  .profile-detail
+    display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); 
     align-items: center; 
     justify-content: center; 
@@ -1104,6 +1104,7 @@ footer .bottom a {
 .profile { 
     padding: 5% 8%; 
 } 
+
 .profile .details { 
     border-radius: .5rem; 
     padding: 2rem; 
@@ -1241,6 +1242,19 @@ footer .bottom a {
     background-image: url('../image/back2.png'); 
     padding: 4%; 
 } 
+.products .box-container .box .stock-info {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    background-color: var(--white-alpha-40);
+    padding: .4rem 1rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 1rem;
+}
+
 .products .box-container .box { 
     position: relative; 
     margin: 1rem; 
@@ -1591,17 +1605,24 @@ footer .bottom a {
     display: flex; 
     justify-content: space-between; 
 }
-.orders .box-container .box .date {
+.orders .box-container .box .date-info {
     position: absolute;
     top: 5%;
     left: 1%;
-    padding: .5rem 1.5rem;
-    color: #fff;
-    font-size: .6rem;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: .5rem 1rem;
+    background-color: var(--white-alpha-40);
     border-radius: .5rem;
-    background-color: var(--main-color);
 }
+
+.orders .box-container .box .date-info .date {
+    color: #fff;
+    font-size: .75rem;
+    margin: 0;
+}
+
 .orders .box-container .box .image {
     height: 25rem;
     width: 100%;
@@ -1638,7 +1659,7 @@ footer .bottom a {
 .order-detail .box-container .box { 
     display: flex; 
     gap: 1.5rem; 
-    flex-wrap: wrap;  menu-btn
+    flex-wrap: wrap; 
     align-items: center; 
     overflow-x: hidden; 
 } 
@@ -1653,17 +1674,30 @@ footer .bottom a {
     object-fit: fill; 
     margin: 1rem 0; 
 }
-.order-detail .box-container .box .col .title { 
+.order-detail .box-container .box .col .title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.order-detail .box-container .box .col .title {
     border-radius: .5rem; 
-    margin-bottom: 1rem; 
     padding: .5rem 2rem; 
     font-size: 1rem; 
     color: #fff; 
     background-color: var(--main-color); 
     border: 2px solid var(--main-color); 
     display: inline-block; 
-    text-transform: capitalize; 
-} 
+    text-transform: capitalize;
+    margin: 0;
+}
+.order-detail .box-container .box .col .date {
+    border: 2px solid var(--main-color);
+    border-radius: .5rem; 
+    padding: .5rem 2rem; 
+}
+
 .order-detail .box-container .box .col .title i { 
     margin-right: 1rem; 
     color: #fff; 

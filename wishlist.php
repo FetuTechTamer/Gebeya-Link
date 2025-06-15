@@ -14,6 +14,8 @@ $warning_msg = [];
 
 include 'components/add_cart.php';
 
+
+
 // Remove product from wishlist 
 if (isset($_POST['delete_item'])) { 
     $wishlist_id = $_POST['wishlist_id']; 
@@ -46,12 +48,23 @@ if (isset($_POST['delete_item'])) {
     <link rel="icon" href="image/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/user_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .banner .detail {
+        padding: 50px;
+    }
+
+    @media (min-width: 1024px) { 
+        .banner .detail {
+            padding: 400px; 
+        }
+    }
+    </style>
 </head>
 <body>
 
 <?php include 'components/user_header.php'; ?>
 <div class="banner"> 
-    <div class="detail" style="padding:400px;"> 
+    <div class="detail" > 
         <h1>My Wishlist</h1> 
         <p>Gebeya Link is dedicated to providing high-quality agricultural products...</p> 
         <span><a href="home.php">Home</a> <i class="fa-solid fa-arrow-right"></i> My Wishlist</span> 
@@ -114,7 +127,7 @@ if (isset($_POST['delete_item'])) {
         </div> 
         <input type="hidden" name="product_id" value="<?= $fetch_products['id']; ?>"> 
         <div class="flex"> 
-            <p class="price">Price: $<?= htmlspecialchars($fetch_products['price']); ?>/-</p> 
+            <p class="price">Price: <?= htmlspecialchars($fetch_products['price']); ?> birr</p> 
         </div> 
         <div class="flex"> 
             <input type="hidden" name="qty" required min="1" value="1" max="99" maxlength="2" class="qty"> 
@@ -123,7 +136,7 @@ if (isset($_POST['delete_item'])) {
     </div>
 </form>
 <?php 
-                    $grand_total += $fetch_products['price']; // Accumulate total price
+                    $grand_total += $fetch_products['price']; 
                 } 
             } 
         } else { 

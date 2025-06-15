@@ -59,17 +59,20 @@ include 'components/add_cart.php';
         <img src="uploaded_files/<?= htmlspecialchars($fetch_products['image']); ?>"> 
     </div> 
     <div class="detail"> 
-        <?php if($fetch_products['stock'] > 9) { ?> 
-            <span class="stock" style="color:green;">In stock</span> 
-        <?php } elseif ($fetch_products['stock'] == 0) { ?> 
-            <span class="stock" style="color:red;">Out of stock</span> 
+        <?php if ($fetch_products['stock'] > 9) { ?> 
+            <span class="stock" style="color:green;">
+                In stock: <?= $fetch_products['stock']; ?> kilo
+            </span> 
+        <?php } elseif ($fetch_products['stock'] > 0) { ?> 
+            <span class="stock" style="color: orange;">
+                Hurry, only <?= $fetch_products['stock']; ?> kilo left!
+            </span> 
         <?php } else { ?> 
-            <span class="stock" style="color: red;">Hurry, only <?= $fetch_products['stock']; ?> left</span> 
+            <span class="stock" style="color:red;">Out of stock</span> 
         <?php } ?> 
-        <p class="price">$<?= htmlspecialchars($fetch_products['price']); ?>/-</p> 
+        <p class="price"><?= htmlspecialchars($fetch_products['price']); ?> birr</p> 
         <div class="name"><?= htmlspecialchars($fetch_products['name']); ?></div> 
         <p class="content"><?= htmlspecialchars($fetch_products['product_detail']); ?></p> 
-
 
         <input type="hidden" name="product_id" value="<?= $fetch_products['id']; ?>"> 
         <div class="button"> 

@@ -2,63 +2,82 @@
 session_start();
 include '../components/connect.php';
 
-// Initialize message variables
 $success_msg = [];
 $warning_msg = [];
 
-// Check if the form is submitted
 if (isset($_POST['submit'])) {
     $id = unique_id();
+
     $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    
-    $password = sha1($_POST['password']); 
-    $password = filter_var($password, FILTER_SANITIZE_STRING);
-
-    $confirm_password = sha1($_POST['confirm_password']); 
-    $confirm_password = filter_var($confirm_password, FILTER_SANITIZE_STRING);
+    $raw_password = $_POST['password'];
+    $confirm_raw_password = $_POST['confirm_password'];
 
     $image = $_FILES['image']['name'];
-    $image = filter_var($image, FILTER_SANITIZE_STRING);
-
     $image_tmp_name = $_FILES['image']['tmp_name'];
-    $image_size = $_FILES['image']['size'];
     $ext = pathinfo($image, PATHINFO_EXTENSION);
     $rename = unique_id() . '.' . $ext;
     $image_folder = '../uploaded_files/' . $rename;
 
-    // Check if the email already exists
-    $select_seller = $conn->prepare("SELECT * FROM `seller` WHERE email = ?");
-    $select_seller->bind_param("s", $email);
-    $select_seller->execute();
-    $result = $select_seller->get_result();
+    // === VALIDATIONS ===
 
-    if ($result->num_rows > 0) {
-        $warning_msg[] = 'Email already exists';
-    } else {
-        if ($password != $confirm_password) {
-            $warning_msg[] = 'Confirm password not matched';
+    // Name validation
+    if (!preg_match("/^[a-zA-Z\s\-]{2,50}$/", $name)) {
+        $warning_msg[] = 'Name must contain only letters, spaces, or hyphens.';
+    }
+
+    // Email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $warning_msg[] = 'Invalid email format.';
+    }
+
+    // Check if email already exists
+    $check_email = $conn->prepare("SELECT id FROM seller WHERE email = ?");
+    $check_email->bind_param("s", $email);
+    $check_email->execute();
+    $check_email->store_result();
+    if ($check_email->num_rows > 0) {
+        $warning_msg[] = 'Email already exists.';
+    }
+
+    // Password validations
+    if (strlen($raw_password) < 6) {
+        $warning_msg[] = 'Password must be at least 6 characters.';
+    } elseif (!preg_match("/[A-Z]/", $raw_password)) {
+        $warning_msg[] = 'Password must contain at least one uppercase letter.';
+    } elseif (!preg_match("/[0-9]/", $raw_password)) {
+        $warning_msg[] = 'Password must contain at least one number.';
+    } elseif (!preg_match("/[\W_]/", $raw_password)) {
+        $warning_msg[] = 'Password must contain at least one special character.';
+    }
+
+    // Confirm password
+    if ($raw_password !== $confirm_raw_password) {
+        $warning_msg[] = 'Passwords do not match.';
+    }
+
+    // If no errors, insert into DB
+    if (empty($warning_msg)) {
+        $hashed_password = sha1($raw_password); // Note: use password_hash() in production
+
+        $insert = $conn->prepare("INSERT INTO seller (id, name, email, password, image) VALUES (?, ?, ?, ?, ?)");
+        $insert->bind_param("sssss", $id, $name, $email, $hashed_password, $rename);
+
+        if ($insert->execute()) {
+            move_uploaded_file($image_tmp_name, $image_folder);
+            $success_msg[] = 'Registration successful. Please log in.';
         } else {
-            $insert_seller = $conn->prepare("INSERT INTO `seller` (id, name, email, password, image) VALUES (?, ?, ?, ?, ?)");
-            $insert_seller->bind_param("sssss", $id, $name, $email, $password, $rename);
-            if ($insert_seller->execute()) {
-                move_uploaded_file($image_tmp_name, $image_folder);
-                $success_msg[] = 'New seller registered! Please log in now.';
-            } else {
-                $warning_msg[] = 'Failed to register the seller.';
-            }
+            $warning_msg[] = 'Registration failed. Please try again.';
         }
     }
 
-    // Store messages in session for display
     $_SESSION['success_msg'] = $success_msg;
     $_SESSION['warning_msg'] = $warning_msg;
-
-    // Redirect to avoid resubmission
     header('Location: register.php');
-    exit();
+    exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

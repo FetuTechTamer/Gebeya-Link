@@ -2,32 +2,35 @@
 session_start(); 
 include '../components/connect.php';
 
-// Initialize message variables
 $success_msg = [];
 $warning_msg = [];
 
 if (isset($_POST['submit'])) {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $password = sha1($_POST['password']); 
-    $password = filter_var($password, FILTER_SANITIZE_STRING);
-  
-    $select_seller = $conn->prepare("SELECT * FROM `seller` WHERE email = ? AND password = ?");
-    $select_seller->bind_param("ss", $email, $password);
-    $select_seller->execute();
+    $password_input = sha1($_POST['password']); // Hash input password
+    $password_input = filter_var($password_input, FILTER_SANITIZE_STRING);
 
-    $result = $select_seller->get_result();
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        setcookie('seller_id', $row['id'], time() + (60 * 60 * 24 * 30), '/'); 
-        header('Location: dashboard.php');
-        exit(); 
-    } else { 
-        $warning_msg[] = 'Incorrect email or password';
+    // First: check if email exists
+    $check_email = $conn->prepare("SELECT * FROM seller WHERE email = ?");
+    $check_email->bind_param("s", $email);
+    $check_email->execute();
+    $result = $check_email->get_result();
+
+    if ($result->num_rows === 0) {
+        $warning_msg[] = "Seller not registered.";
+    } else {
+        $seller = $result->fetch_assoc();
+        if ($seller['password'] !== $password_input) {
+            $warning_msg[] = "Incorrect password.";
+        } else {
+            // Login success
+            setcookie('seller_id', $seller['id'], time() + (60 * 60 * 24 * 30), '/');
+            header('Location: dashboard.php');
+            exit();
+        }
     }
-}
 
-// Store messages in session for display
-if (!empty($warning_msg)) {
+    // Store warning for UI
     $_SESSION['warning_msg'] = $warning_msg;
 }
 ?>
@@ -58,6 +61,7 @@ if (!empty($warning_msg)) {
         </div>
         
         <p class="link">Do not have an account?<a href="register.php"> Register now</a></p>
+        <p class="link">Forget Password?<a href="password_reset.php"> Reset now</a></p>
         <input type="submit" name="submit" value="Login Now" class="btn">
     </form>
 </div>

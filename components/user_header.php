@@ -1,7 +1,7 @@
 <header class="header"> 
     <section class="flex"> 
         <a href="home.php" class="logo"> 
-            <img src="image/logo.webp" width="130" alt="Logo">
+            <img src="image/logo1.png" alt="Company Logo" width="130px">
         </a> 
 
         <nav class="navbar"> 
@@ -30,7 +30,7 @@
             $count_wishlist_item->execute(); 
             $count_wishlist_item->store_result(); 
             $total_wishlist_items = $count_wishlist_item->num_rows; 
-            $count_wishlist_item->free_result(); // Free the result set
+            $count_wishlist_item->free_result(); 
             ?> 
             <a href="wishlist.php"><i class="fa-regular fa-heart"></i><sup><?= $total_wishlist_items; ?></sup></a> 
 
@@ -41,14 +41,14 @@
             $count_cart_item->execute(); 
             $count_cart_item->store_result(); 
             $total_cart_items = $count_cart_item->num_rows; 
-            $count_cart_item->free_result(); // Free the result set
+            $count_cart_item->free_result(); 
             ?> 
             <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?= $total_cart_items; ?></sup></a>
            
-            <div id="user-btn"><i class="fa-solid fa-user"></i></div>
+            <a id="user-btn" onclick="toggleProfileDetail()"><i class="fa-solid fa-user"></i></a>
         </div>
 
-        <div class="profile-detail"> 
+        <div class="profile-detail" id="profileDetail"> 
         <?php 
             $select_profile = $conn->prepare("SELECT * FROM user WHERE id = ?");
             $select_profile->bind_param("s", $user_id);
@@ -58,12 +58,14 @@
             if ($result && $result->num_rows > 0) {
                 $fetch_profile = $result->fetch_assoc();
         ?> 
+        <div class="profile">
                 <img src="uploaded_files/<?= htmlspecialchars($fetch_profile['image']); ?>" alt="Profile Image"> 
                 <h3 style="margin-bottom: 1rem;"><?= htmlspecialchars($fetch_profile['name']); ?></h3> 
                 <div class="flex-btn"> 
                     <a href="profile.php" class="btn">View Profile</a> 
                     <a href="components/user_logout.php" onclick="return confirm('Logout from this website?');" class="btn">Logout</a> 
                 </div> 
+        </div>
         <?php 
             } else {
         ?>
@@ -78,3 +80,22 @@
         </div>
     </section> 
 </header>
+
+<script>
+function toggleProfileDetail() {
+    const profileDetail = document.getElementById('profileDetail');
+    // Toggle the active class
+    profileDetail.classList.toggle('active');
+}
+</script>
+
+<style>
+.profile-detail {
+    display: none; /* Initially hidden */
+    /* Other styles... */
+}
+
+.profile-detail.active {
+    display: block; /* Show when active */
+}
+</style>
