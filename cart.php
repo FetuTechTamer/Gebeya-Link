@@ -90,7 +90,8 @@ if (isset($_POST['empty_cart'])) {
 <div class="banner"> 
     <div class="detail" > 
         <h1>Cart</h1> 
-        <p>Gebeya Link is dedicated to providing high-quality agricultural products...</p> 
+       <p>Gebeya Link is dedicated to providing high-quality agricultural products. We focus on sustainable practices <br>and supporting local farmers to ensure fresh and nutritious offerings.<br>
+        Our mission is to connect consumers with the best produce while promoting responsible farming.</p> 
         <span><a href="home.php">Home</a> <i class="fa-solid fa-arrow-right"></i> Cart</span> 
     </div> 
 </div>

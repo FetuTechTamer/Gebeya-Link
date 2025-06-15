@@ -288,7 +288,7 @@ header .right{
 .toggle-btn{
     margin-left: .5rem;
     display: none;
-}
+} 
 .profile-detail{
     background-color: var(--white-alpha-25);
     border: 2px solid var(--white-alpha-40);

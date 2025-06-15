@@ -363,6 +363,7 @@ input[type='submit']:hover{
     display: none;
     transition: .5s;
 }
+
 @keyframes fadeIn {
     0%{
         transform: translateY(1rem);
@@ -371,27 +372,26 @@ input[type='submit']:hover{
 .profile-detail.active{
     display: block;
 }
-.profile-detail h3{
+.profile-detail p{
     padding-bottom: .7rem;
     font-size: 1.5rem;
     text-transform: capitalize;
-    color: #000;
+    color: lightgray;
 }
+
 .profile-detail .flex-btn{
     display: flex;
     justify-content: space-evenly;
 }
 .profile-detail .flex-btn .btn{
-    margin: 0.5rem ;
+    margin: 0 ;
 }
-.profile-detail img { 
-    width: 9rem; 
-    height: 9rem; 
-    border-radius: 50%; 
-    padding: .5rem; 
-    object-fit: cover; 
-    margin-bottom: .5rem; 
-    background-color: var(--main-color); 
+.profile {
+    margin: .5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 } 
 .header .navbar { 
     display: flex; 
@@ -1100,69 +1100,17 @@ footer .bottom a {
     width: 100%; 
     margin-bottom: -3,7rem; 
 }
-/*----profile----*/
-.profile { 
-    padding: 5% 8%; 
-} 
-
-.profile .details { 
-    border-radius: .5rem; 
-    padding: 2rem; 
-    box-shadow: var(--box-shadow); 
-    text-transform: capitalize; 
-    margin-top: 2rem; 
-} 
-.profile .details .user { 
-    text-align: center; 
-    margin-bottom: 2rem; 
-} 
-.profile .details .user img { 
-    width: 10rem; 
-    height: 10rem; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    margin-bottom: .5rem; 
-    padding: .5rem; 
-    background-color: var(--main-color); 
+.profile {
+    margin: .5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-.profile .details .user h3 { 
-    font-size: 2rem; 
-    margin: .5rem 0; 
-} 
-.profile .details .user p { 
-    font-size: 1.7rem; 
-    color: gray; 
-    margin-bottom: 2rem; 
-} 
-.profile .details .box-container { 
-    display: flex; 
-    flex-wrap: wrap; 
-    align-items: flex-end; 
-    gap: 1.5rem; 
-} 
-.profile .details .box-container .box { 
-    background-color: #cccccc11; 
-    border-radius: .5rem; 
-    padding: 1.5rem 2rem; 
-    flex: 1 1 30rem; 
-} 
-.profile .details .box-container .box .flex { 
-    display: flex; 
-    align-items: center; 
-    gap: 1.7rem; 
-    margin-bottom: 1rem; 
-} 
-.profile .details .box-container .box .flex i { 
-    font-size: 1.5rem; 
-} 
-.profile .details .box-container .box .flex h3 { 
-    font-size: 1.5rem; 
-    color: var(--main-color); 
-    margin-bottom: .2rem; 
-} 
-.profile .details .box-container .box .flex span { 
-    font-size: 1.5rem; 
-    color: lightgray; 
+.profile .logo-img {
+    border-radius: 50%;
+    padding: .2rem;
+    border: 2px solid var(--main-color);
 }
 
 

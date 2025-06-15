@@ -45,57 +45,29 @@
             ?> 
             <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?= $total_cart_items; ?></sup></a>
            
-            <a id="user-btn" onclick="toggleProfileDetail()"><i class="fa-solid fa-user"></i></a>
+            <a id="user-btn"><i class="fa-solid fa-user"></i></a>
         </div>
-
-        <div class="profile-detail" id="profileDetail"> 
-        <?php 
-            $select_profile = $conn->prepare("SELECT * FROM user WHERE id = ?");
-            $select_profile->bind_param("s", $user_id);
-            $select_profile->execute();
-            $result = $select_profile->get_result();
-
-            if ($result && $result->num_rows > 0) {
-                $fetch_profile = $result->fetch_assoc();
-        ?> 
-        <div class="profile">
-                <img src="uploaded_files/<?= htmlspecialchars($fetch_profile['image']); ?>" alt="Profile Image"> 
-                <h3 style="margin-bottom: 1rem;"><?= htmlspecialchars($fetch_profile['name']); ?></h3> 
-                <div class="flex-btn"> 
-                    <a href="profile.php" class="btn">View Profile</a> 
-                    <a href="components/user_logout.php" onclick="return confirm('Logout from this website?');" class="btn">Logout</a> 
-                </div> 
-        </div>
-        <?php 
-            } else {
-        ?>
-                <h3 style="margin-bottom: 1rem;">Please login or register</h3> 
-                <div class="flex-btn"> 
-                    <a href="login.php" class="btn">Login</a> 
-                    <a href="register.php" class="btn">Register</a> 
-                </div> 
+        <div class="profile-detail">
         <?php
-            }
+        $select_profile = $conn->prepare("SELECT * FROM `user` WHERE id=?");
+        $select_profile->bind_param("s", $user_id);
+        $select_profile->execute();
+        $result = $select_profile->get_result();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
         ?>
-        </div>
+            <div class="profile">
+                <img src="../uploaded_files/<?= htmlspecialchars($row['image']); ?>" class="logo-img" width="100" alt="Profile Image">
+                <p><?= htmlspecialchars($row['name']); ?></p>
+                <div class="flex-btn">
+                    <a href="profile.php" class="btn" style="margin: 0 10px;">Profile</a>
+                    <a href="user_logout.php" onclick="return confirm('Logout from this website?');" class="btn">Logout</a>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+        
+        
     </section> 
 </header>
 
-<script>
-function toggleProfileDetail() {
-    const profileDetail = document.getElementById('profileDetail');
-    // Toggle the active class
-    profileDetail.classList.toggle('active');
-}
-</script>
-
-<style>
-.profile-detail {
-    display: none; /* Initially hidden */
-    /* Other styles... */
-}
-
-.profile-detail.active {
-    display: block; /* Show when active */
-}
-</style>
