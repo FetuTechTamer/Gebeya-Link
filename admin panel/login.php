@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
 
 <div class="form-container">
     <form action="" method="POST" class="register" style="transform: none;">
-        <h3>Login Now</h3>
+        <h3>Seller Login Page</h3>
         <div class="input-field">
             <p>Your Email<span>*</span></p>
             <input type="email" name="email" placeholder="Enter your email" maxlength="50" required class="box">

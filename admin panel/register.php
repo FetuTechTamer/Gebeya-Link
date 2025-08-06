@@ -95,7 +95,7 @@ if (isset($_POST['submit'])) {
 
 <div class="form-container">
     <form action="" method="POST" enctype="multipart/form-data" class="register" style="transform: none;">
-        <h3>Register Now</h3>
+        <h3>Seller Registration Page</h3>
         <div class="flex">
             <div class="col">
                 <div class="input-field">

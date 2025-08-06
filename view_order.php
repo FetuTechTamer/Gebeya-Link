@@ -171,7 +171,8 @@ if (isset($_POST['order_again'])) {
             </div>
 
             <img src="uploaded_files/<?= htmlspecialchars($fetch_product['image']); ?>" class="image"> 
-            <p class="price"><?= number_format($fetch_product['price'], 2); ?> birr</p> 
+            <p class="price"><?= number_format($fetch_product['price'], 2); ?> birr x <?= htmlspecialchars($fetch_order['quantity']); ?></p>
+
             <h3 class="name"><?= htmlspecialchars($fetch_product['name']); ?></h3> 
             <p class="grand-total">
                 Total amount payable ---<span><?= number_format($grand_total, 2); ?> birr</span>

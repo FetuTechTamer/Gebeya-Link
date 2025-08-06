@@ -21,6 +21,7 @@
                 <div class="flex-btn">
                     <a href="profile.php" class="btn" style="margin: 0 10px;">Profile</a>
                     <a href="../components/admin_logout.php" onclick="return confirm('Logout from this website?');" class="btn">Logout</a>
+                    <a href="../home.php" class="btn" style="margin: 0 10px;">home</a>
                 </div>
             </div>
         <?php } ?>

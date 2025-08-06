@@ -1,8 +1,8 @@
 <?php
 include '../components/connect.php';
 
-if (isset($_COOKIE['user_id'])) {
-    $user_id = $_COOKIE['user_id'];
+if (isset($_COOKIE['seller_id'])) {
+    $seller_id = $_COOKIE['seller_id'];
 
     // Fetch profile data
     $fetch_profile_query = $conn->prepare("SELECT * FROM `user` WHERE id = ?");
@@ -70,9 +70,9 @@ if (isset($_COOKIE['user_id'])) {
                 ?> 
                 <div class="box"> 
                     <img src="../uploaded_files/<?= htmlspecialchars($fetch_sellers['image']); ?>" alt="User Image"> 
-                    <p>User ID: <span><?= htmlspecialchars($user_id); ?></span></p> 
-                    <p>User Name: <span><?= htmlspecialchars($fetch_sellers['name']); ?></span></p> 
-                    <p>User Email: <span><?= htmlspecialchars($fetch_sellers['email']); ?></span></p> 
+                    <p>seller ID: <span><?= htmlspecialchars($user_id); ?></span></p> 
+                    <p>seller Name: <span><?= htmlspecialchars($fetch_sellers['name']); ?></span></p> 
+                    <p>seller Email: <span><?= htmlspecialchars($fetch_sellers['email']); ?></span></p> 
                 </div> 
                 <?php 
                     } 

@@ -45,29 +45,66 @@
             ?> 
             <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?= $total_cart_items; ?></sup></a>
            
-            <a id="user-btn"><i class="fa-solid fa-user"></i></a>
+            <a class="fa-solid fa-user" id="user-btn" style="font-size: 2rem; cursor: pointer;"></a>
         </div>
-        <div class="profile-detail">
-        <?php
-        $select_profile = $conn->prepare("SELECT * FROM `user` WHERE id=?");
-        $select_profile->bind_param("s", $user_id);
-        $select_profile->execute();
-        $result = $select_profile->get_result();
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-        ?>
-            <div class="profile">
-                <img src="../uploaded_files/<?= htmlspecialchars($row['image']); ?>" class="logo-img" width="100" alt="Profile Image">
-                <p><?= htmlspecialchars($row['name']); ?></p>
-                <div class="flex-btn">
-                    <a href="profile.php" class="btn" style="margin: 0 10px;">Profile</a>
-                    <a href="user_logout.php" onclick="return confirm('Logout from this website?');" class="btn">Logout</a>
+
+        <div class="profile-detail" id="profile-detail" style="display: none;">
+            <?php if (isset($_COOKIE['user_id'])): // User is logged in ?>
+                <?php
+                // Fetch user profile details
+                $select_profile = $conn->prepare("SELECT * FROM `user` WHERE id=?");
+                $select_profile->bind_param("s", $_COOKIE['user_id']);
+                $select_profile->execute();
+                $result = $select_profile->get_result();
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                ?>
+                    <div class="profile">
+                        <img src="uploaded_files/<?= htmlspecialchars($row['image']); ?>" class="logo-img" width="100" alt="Profile Image">
+                        <p><?= htmlspecialchars($row['name']); ?></p>
+                        <div class="flex-btn">
+                            <a href="profile.php" class="btn" style="margin: 0 10px;">Profile</a>
+                            <a href="components/user_logout.php" onclick="return confirm('Logout from this website?');" class="btn">Logout</a>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php else: // User is not logged in ?>
+                <div class="profile">
+                    <p>Please log in or register to access seller options.</p>
+                    <div class="flex-btn">
+                        <a href="admin panel/login.php" class="btn" style="margin: 0 10px;">Login</a>
+                        <a href="admin panel/register.php" class="btn">Register</a>
+                    </div>
                 </div>
-            </div>
-        <?php } ?>
-    </div>
-        
-        
+            <?php endif; ?>
+        </div>
     </section> 
 </header>
 
+<style>
+    .profile-detail {
+        position: absolute;
+        top: 60px; 
+        right: 20px;
+        background-color: white; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 1rem;
+        z-index: 1000;
+    }
+</style>
+
+<script>
+    document.getElementById('user-btn').addEventListener('click', function() {
+        const profileDetail = document.getElementById('profile-detail');
+        profileDetail.style.display = profileDetail.style.display === 'block' ? 'none' : 'block'; // Toggle visibility
+    });
+
+    // Close profile details if clicked outside
+    window.addEventListener('click', function(event) {
+        const profileDetail = document.getElementById('profile-detail');
+        if (!event.target.matches('#user-btn') && !profileDetail.contains(event.target)) {
+            profileDetail.style.display = 'none'; // Hide if clicked outside
+        }
+    });
+</script>

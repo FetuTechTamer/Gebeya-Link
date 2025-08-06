@@ -77,7 +77,7 @@ if (isset($_POST['delete_msg'])) {
         while ($fetch_message = $result->fetch_assoc()) {
             if ($i % 2 == 0) echo '<div class="row">';
     ?>
-        <div class="box"> 
+        <div class="box" style="width: 500px; margin: 10px;"> 
             <h3 class="name"><?= htmlspecialchars($fetch_message['name']); ?></h3> 
             <h4>Email: <?= htmlspecialchars($fetch_message['email']); ?></h4> 
             <h4>Subject: <?= htmlspecialchars($fetch_message['subject']); ?></h4> 
