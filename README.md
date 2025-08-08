@@ -63,4 +63,4 @@ Fethiya Abdurehim - fethiyaabdurehim7@gmail.com
 
 ## More Information
 
-For more details, visit [Gebeya Link](https://gebeya-link.infinityfreeapp.com/.gebeyalink.com).
+For more details, visit [Gebeya Link](https://gebeya-link.infinityfreeapp.com/).
