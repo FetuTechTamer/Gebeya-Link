@@ -12,6 +12,7 @@ Gebeya Link is an eCommerce website dedicated to providing high-quality agricult
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Contact](#contact)
+- [More Information](#more-information)
 
 ## Features
 
@@ -24,8 +25,10 @@ Gebeya Link is an eCommerce website dedicated to providing high-quality agricult
 ## Screenshots
 
 <!-- Add your screenshots here -->
-<img src="path/to/screenshot1.png" alt="Screenshot 1" width="400">
-<img src="path/to/screenshot2.png" alt="Screenshot 2" width="400">
+<img src="sample_screenshoots/screenshoot1.png" alt="Screenshot 1" width="400">
+<img src="sample_screenshoots/screenshoot2.png" alt="Screenshot 2" width="400">
+<img src="sample_screenshoots/screenshoot3.png" alt="Screenshot 3" width="400">
+<img src="sample_screenshoots/screenshoot4.png" alt="Screenshot 4" width="400">
 
 ## Installation
 
@@ -56,3 +59,8 @@ If you'd like to contribute, please follow these guidelines:
 Fethiya Abdurehim - fethiyaabdurehim7@gmail.com
 
 [https://www.linkedin.com/in/fethiya-abdurehim-3a0248331?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app]
+
+
+## More Information
+
+For more details, visit [Gebeya Link](https://gebeya-link.infinityfreeapp.com/.gebeyalink.com).
